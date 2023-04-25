@@ -1,4 +1,4 @@
-name: Unit Tests - Scheduled Bicep Build
+name: Unit Tests - Bicep Build
 
 permissions:
   contents: read
