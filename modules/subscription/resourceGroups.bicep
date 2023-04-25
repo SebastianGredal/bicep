@@ -12,10 +12,3 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   properties: {}
   tags: tags
 }
-
-resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
-  name: name
-  location: location
-  properties: {}
-  tags: tags
-}
