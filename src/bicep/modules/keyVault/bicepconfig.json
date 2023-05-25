@@ -1,4 +1,7 @@
 {
+    "experimentalFeaturesEnabled": {
+        "paramsFiles": true
+    },
     "analyzers": {
         "core": {
             "enabled": true,
