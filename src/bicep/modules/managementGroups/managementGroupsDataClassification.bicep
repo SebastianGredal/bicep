@@ -1,12 +1,19 @@
 targetScope = 'tenant'
 
 param parName string
-param parDisplayName string
-param parDataClassification array
+param parParentId string
+param parLandingZoneChildrenDataClassificationManagementGroups array
+param parManagementGroupSuffix string
+param parTopLevelManagementGroupPrefix string
 
-var varDataClassificationUnion = [for item in parDataClassification: {
-  name: '${parName}-${item.name}'
-  displayName: '${parDisplayName}-${item.display}'
+resource resLandingZoneChildrenDataClassificationManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parLandingZoneChildrenDataClassificationManagementGroups: {
+  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-landingzones-${parName}-${item.name}' : '${parTopLevelManagementGroupPrefix}-landingzones-${parName}-${item.name}-${parManagementGroupSuffix}'
+  properties: {
+    displayName: item.displayName
+    details: {
+      parent: {
+        id: parParentId
+      }
+    }
+  }
 }]
-
-output outDataClassificationUnion array = varDataClassificationUnion

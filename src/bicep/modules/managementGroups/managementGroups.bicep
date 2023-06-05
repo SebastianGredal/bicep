@@ -62,15 +62,6 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
 
 param customerUsageAttributionId string = ''
 
-module modManagementGroupDataClassification 'managementGroupsDataClassification.bicep' = [for item in parLandingZoneChildrenManagementGroups: if (parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups)) {
-  name: '${item.name}-data-classification'
-  params: {
-    parDataClassification: parLandingZoneChildrenDataClassificationManagementGroups
-    parDisplayName: item.displayName
-    parName: item.name
-  }
-}]
-
 var varTopLevelManagementGroup = {
   name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}' : '${parTopLevelManagementGroupPrefix}-${parManagementGroupSuffix}'
   displayName: parTopLevelManagementGroupDisplayName
@@ -170,3 +161,34 @@ resource resPlatformChildrenManagementGroups 'Microsoft.Management/managementGro
     }
   }
 }]
+
+resource resLandingZoneChildrenManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups)) {
+  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-landingzones-${item.name}' : '${parTopLevelManagementGroupPrefix}-landingzones-${item.name}-${parManagementGroupSuffix}'
+  properties: {
+    displayName: item.displayName
+    details: {
+      parent: {
+        id: resLandingZoneManagementGroup.id
+      }
+    }
+  }
+}]
+
+// Level 3 Management Groups
+module modManagementGroupDataClassification 'managementGroupsDataClassification.bicep' = [for (item, index) in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups)) {
+  name: '${resLandingZoneChildrenManagementGroups[index].name}-data-classification'
+  params: {
+    parLandingZoneChildrenDataClassificationManagementGroups: parLandingZoneChildrenDataClassificationManagementGroups
+    parName: resLandingZoneChildrenManagementGroups[index].name
+    parParentId: resLandingZoneChildrenManagementGroups[index].id
+    parManagementGroupSuffix: parManagementGroupSuffix
+    parTopLevelManagementGroupPrefix: parTopLevelManagementGroupPrefix
+  }
+}]
+
+// Optional Deployment for Customer Usage Attribution
+module modCustomerUsageAttribution '../emptyDeployments/customerUsageAttributionTenant.bicep' = if (!empty(customerUsageAttributionId)) {
+  #disable-next-line no-loc-expr-outside-params //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information
+  name: 'pid-${customerUsageAttributionId}-${uniqueString(deployment().location)}'
+  params: {}
+}
