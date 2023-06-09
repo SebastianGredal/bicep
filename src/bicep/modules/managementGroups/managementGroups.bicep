@@ -3,18 +3,34 @@ targetScope = 'tenant'
 metadata name = 'Management Groups Module'
 metadata description = 'Module for deployment of a management group structure based on the Microsoft Cloud Adoption Framework for Azure'
 
+@sys.description('The suffix to append to the management group names')
 param parManagementGroupSuffix string = ''
 
+@sys.description('The prefix to use for the top level management group')
 param parTopLevelManagementGroupPrefix string = 'MGT'
+
+@sys.description('The display name to use for the top level management group')
 param parTopLevelManagementGroupDisplayName string = 'Management Groups'
+
+@sys.description('The parent ID to use for the top level management group')
 param parTopLevelManagementGroupParentId string = '/providers/Microsoft.Management/managementGroups/${tenant().tenantId}'
 
+@sys.description('Whether to enable the platform management groups')
 param parPlatformManagementGroupsEnabled bool = true
+
+@sys.description('Whether to enable the landing zones management groups')
 param parLandinZonesManagementGroupsEnabled bool = true
+
+@sys.description('Whether to enable the decommissioned management groups')
 param parDecommissionedManagementGroupsEnabled bool = true
+
+@sys.description('Whether to enable the sandbox management groups')
 param parSandboxManagementGroupsEnabled bool = true
+
+@sys.description('Whether to enable the data classification management groups')
 param parLandingZonesDataClassificationManagementGroupsEnabled bool = true
 
+@sys.description('Array of objects containing the name and display name of the platform management groups')
 param parPlatformChildrenManagementGroups array = [
   {
     name: 'identity'
@@ -30,6 +46,7 @@ param parPlatformChildrenManagementGroups array = [
   }
 ]
 
+@sys.description('Array of objects containing the name and display name of the landing zones management groups')
 param parLandingZoneChildrenManagementGroups array = [
   {
     name: 'corp'
@@ -41,6 +58,7 @@ param parLandingZoneChildrenManagementGroups array = [
   }
 ]
 
+@sys.description('Array of objects containing the data classification levels of the landing zones management groups')
 param parLandingZoneChildrenDataClassificationManagementGroups array = [
   {
     name: 'public'
@@ -60,6 +78,7 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
   }
 ]
 
+@sys.description('The customer usage attribution ID for partners')
 param customerUsageAttributionId string = ''
 
 var varTopLevelManagementGroup = {
