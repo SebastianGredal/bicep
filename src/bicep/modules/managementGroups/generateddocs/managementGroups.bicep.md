@@ -6,31 +6,31 @@ Module for deployment of a management group structure based on the Microsoft Clo
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-parManagementGroupSuffix | No       |
-parTopLevelManagementGroupPrefix | No       |
-parTopLevelManagementGroupDisplayName | No       |
-parTopLevelManagementGroupParentId | No       |
-parPlatformManagementGroupsEnabled | No       |
-parLandinZonesManagementGroupsEnabled | No       |
-parDecommissionedManagementGroupsEnabled | No       |
-parSandboxManagementGroupsEnabled | No       |
-parLandingZonesDataClassificationManagementGroupsEnabled | No       |
-parPlatformChildrenManagementGroups | No       |
-parLandingZoneChildrenManagementGroups | No       |
-parLandingZoneChildrenDataClassificationManagementGroups | No       |
-customerUsageAttributionId | No       |
+parManagementGroupSuffix | No       | The suffix to append to the management group names
+parTopLevelManagementGroupPrefix | No       | The prefix to use for the top level management group
+parTopLevelManagementGroupDisplayName | No       | The display name to use for the top level management group
+parTopLevelManagementGroupParentId | No       | The parent ID to use for the top level management group
+parPlatformManagementGroupsEnabled | No       | Whether to enable the platform management groups
+parLandinZonesManagementGroupsEnabled | No       | Whether to enable the landing zones management groups
+parDecommissionedManagementGroupsEnabled | No       | Whether to enable the decommissioned management groups
+parSandboxManagementGroupsEnabled | No       | Whether to enable the sandbox management groups
+parLandingZonesDataClassificationManagementGroupsEnabled | No       | Whether to enable the data classification management groups
+parPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups
+parLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups
+parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups
+customerUsageAttributionId | No       | The customer usage attribution ID for partners
 
 ### parManagementGroupSuffix
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+The suffix to append to the management group names
 
 ### parTopLevelManagementGroupPrefix
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+The prefix to use for the top level management group
 
 - Default value: `MGT`
 
@@ -38,7 +38,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+The display name to use for the top level management group
 
 - Default value: `Management Groups`
 
@@ -46,7 +46,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+The parent ID to use for the top level management group
 
 - Default value: `[format('/providers/Microsoft.Management/managementGroups/{0}', tenant().tenantId)]`
 
@@ -54,7 +54,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Whether to enable the platform management groups
 
 - Default value: `True`
 
@@ -62,7 +62,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Whether to enable the landing zones management groups
 
 - Default value: `True`
 
@@ -70,7 +70,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Whether to enable the decommissioned management groups
 
 - Default value: `True`
 
@@ -78,7 +78,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Whether to enable the sandbox management groups
 
 - Default value: `True`
 
@@ -86,7 +86,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Whether to enable the data classification management groups
 
 - Default value: `True`
 
@@ -94,7 +94,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Array of objects containing the name and display name of the platform management groups
 
 - Default value: `  `
 
@@ -102,7 +102,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Array of objects containing the name and display name of the landing zones management groups
 
 - Default value: ` `
 
@@ -110,7 +110,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+Array of objects containing the data classification levels of the landing zones management groups
 
 - Default value: `   `
 
@@ -118,7 +118,7 @@ customerUsageAttributionId | No       |
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-
+The customer usage attribution ID for partners
 
 ## Snippets
 

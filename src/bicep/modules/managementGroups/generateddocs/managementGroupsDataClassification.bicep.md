@@ -1,44 +1,46 @@
-# Azure template
+# Management Groups Data Classification Module
+
+Helper module for deployment of a management group structure based on the Microsoft Cloud Adoption Framework for Azure
 
 ## Parameters
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-parName        | Yes      |
-parParentId    | Yes      |
-parLandingZoneChildrenDataClassificationManagementGroups | Yes      |
-parManagementGroupSuffix | Yes      |
-parTopLevelManagementGroupPrefix | Yes      |
+parName        | Yes      | The landing zone management group name
+parParentId    | Yes      | The landing zone management group parent id
+parLandingZoneChildrenDataClassificationManagementGroups | Yes      | The landing zone children data classification management groups
+parManagementGroupSuffix | Yes      | The management group suffix
+parTopLevelManagementGroupPrefix | Yes      | The top level management group prefix
 
 ### parName
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-
+The landing zone management group name
 
 ### parParentId
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-
+The landing zone management group parent id
 
 ### parLandingZoneChildrenDataClassificationManagementGroups
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-
+The landing zone children data classification management groups
 
 ### parManagementGroupSuffix
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-
+The management group suffix
 
 ### parTopLevelManagementGroupPrefix
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-
+The top level management group prefix
 
 ## Snippets
 
