@@ -1,15 +1,24 @@
 {
     "experimentalFeaturesEnabled": {
-        "paramsFiles": true
+        "sourceMapping": true,
+        "symbolicNameCodegen": true,
+        "resourceTypedParamsAndOutputs": true
+    },
+    "cloud": {
+        "currentProfile": "AzureCloud"
     },
     "analyzers": {
         "core": {
             "enabled": true,
+            "verbose": true,
             "rules": {
                 "adminusername-should-not-be-literal": {
                     "level": "error"
                 },
                 "artifacts-parameters": {
+                    "level": "error"
+                },
+                "decompiler-cleanup": {
                     "level": "error"
                 },
                 "explicit-values-for-loc-params": {
@@ -72,10 +81,20 @@
                 "simplify-interpolation": {
                     "level": "error"
                 },
-                "use-recent-api-versions": {
+                "simplify-json-null": {
                     "level": "error"
                 },
+                "use-parent-property": {
+                    "level": "error"
+                },
+                "use-recent-api-versions": {
+                    "level": "warning",
+                    "maxAllowedAgeInDays": 730
+                },
                 "use-resource-id-functions": {
+                    "level": "error"
+                },
+                "use-resource-symbol-reference": {
                     "level": "error"
                 },
                 "use-stable-resource-identifiers": {
@@ -84,8 +103,7 @@
                 "use-stable-vm-image": {
                     "level": "error"
                 }
-            },
-            "verbose": true
+            }
         }
     }
 }
