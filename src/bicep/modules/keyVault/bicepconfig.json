@@ -1,9 +1,4 @@
 {
-    "experimentalFeaturesEnabled": {
-        "sourceMapping": true,
-        "symbolicNameCodegen": true,
-        "resourceTypedParamsAndOutputs": true
-    },
     "cloud": {
         "currentProfile": "AzureCloud"
     },

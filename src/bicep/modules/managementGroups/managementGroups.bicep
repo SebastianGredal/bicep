@@ -107,6 +107,8 @@ var varSandboxManagementGroup = {
   displayName: 'Sandbox'
 }
 
+var varToplevelManagementGroupParentId = empty(parTopLevelManagementGroupParentId) ? '/providers/Microsoft.Management/managementGroups/${tenant().tenantId}' : 'providers/Microsoft.Management/managementGroups/${parTopLevelManagementGroupParentId}'
+
 // Level 0 Management Group
 resource resTopLevelManagementGroup 'Microsoft.Management/managementGroups@2021-04-01' = {
   name: varTopLevelManagementGroup.name
@@ -114,7 +116,7 @@ resource resTopLevelManagementGroup 'Microsoft.Management/managementGroups@2021-
     displayName: varTopLevelManagementGroup.displayName
     details: {
       parent: {
-        id: parTopLevelManagementGroupParentId
+        id: varToplevelManagementGroupParentId
       }
     }
   }
