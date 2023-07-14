@@ -18,7 +18,8 @@ parLandingZonesDataClassificationManagementGroupsEnabled | No       | Whether to
 parPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups
 parLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups
 parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups
-customerUsageAttributionId | No       | The customer usage attribution ID for partners
+parEnableCustomerUsageAttributionId | No       | Whether to enable the customer usage attribution deployment
+parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
 
 ### parManagementGroupSuffix
 
@@ -48,7 +49,7 @@ The display name to use for the top level management group
 
 The parent ID to use for the top level management group
 
-- Default value: `[format('/providers/Microsoft.Management/managementGroups/{0}', tenant().tenantId)]`
+- Default value: `[tenant().tenantId]`
 
 ### parPlatformManagementGroupsEnabled
 
@@ -114,7 +115,15 @@ Array of objects containing the data classification levels of the landing zones 
 
 - Default value: `   `
 
-### customerUsageAttributionId
+### parEnableCustomerUsageAttributionId
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Whether to enable the customer usage attribution deployment
+
+- Default value: `False`
+
+### parCustomerUsageAttributionId
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
@@ -142,7 +151,7 @@ The customer usage attribution ID for partners
             "value": "Management Groups"
         },
         "parTopLevelManagementGroupParentId": {
-            "value": "[format('/providers/Microsoft.Management/managementGroups/{0}', tenant().tenantId)]"
+            "value": "[tenant().tenantId]"
         },
         "parPlatformManagementGroupsEnabled": {
             "value": true
@@ -207,7 +216,10 @@ The customer usage attribution ID for partners
                 }
             ]
         },
-        "customerUsageAttributionId": {
+        "parEnableCustomerUsageAttributionId": {
+            "value": false
+        },
+        "parCustomerUsageAttributionId": {
             "value": ""
         }
     }
