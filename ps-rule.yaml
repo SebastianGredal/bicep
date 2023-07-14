@@ -11,20 +11,20 @@
 # Use rules from the following modules/
 include:
   module:
-  - 'PSRule.Rules.Azure'
+    - "PSRule.Rules.Azure"
 
 # Require a minimum version of modules that include referenced baseline.
 requires:
-  PSRule: '@pre >=2.3.2'
-  PSRule.Rules.Azure: '@pre >=1.18.1'
+  PSRule: "@pre >=2.3.2"
+  PSRule.Rules.Azure: "@pre >=1.18.1"
 
 # Reference the repository in output.
 repository:
-  url: https://github.com/Azure/ALZ-Bicep
+  url: https://github.com/SebastianGredal/bicep
 
 execution:
   # Ignore warnings for resources and objects that don't have any rules.
-  notProcessedWarning: false
+  unprocessedObject: Ignore
 
 configuration:
   # Enable expansion for Bicep source files.
@@ -38,20 +38,20 @@ configuration:
 
 input:
   pathIgnore:
-  # Ignore common files that don't need analysis.
-  - '**/bicepconfig.json'
-  - '*.md'
-  - '*.png'
-  - '.github/'
+    # Ignore common files that don't need analysis.
+    - "**/bicepconfig.json"
+    - "*.md"
+    - "*.png"
+    - ".github/"
 
-  # Exclude Bicep module files
-  - 'src/bicep/**/*.bicep'
+    # Exclude Bicep module files
+    - "src/bicep/**/*.bicep"
 
-  # Include samples/ test files from modules
-  - '!src/bicep/**/samples/*.bicep'
+    # Include samples/ test files from modules
+    - "!src/bicep/**/samples/*.bicep"
 
 binding:
   preferTargetInfo: true
   targetType:
-  - resourceType
-  - type
+    - resourceType
+    - type
