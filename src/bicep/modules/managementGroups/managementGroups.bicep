@@ -14,7 +14,7 @@ param parTopLevelManagementGroupPrefix string = 'MGT'
 param parTopLevelManagementGroupDisplayName string = 'Management Groups'
 
 @sys.description('The parent ID to use for the top level management group')
-param parTopLevelManagementGroupParentId string = '/providers/Microsoft.Management/managementGroups/${tenant().tenantId}'
+param parTopLevelManagementGroupParentId string = tenant().tenantId
 
 @sys.description('Whether to enable the platform management groups')
 param parPlatformManagementGroupsEnabled bool = true
@@ -79,8 +79,11 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
   }
 ]
 
+@sys.description('Whether to enable the customer usage attribution deployment')
+param parEnableCustomerUsageAttributionId bool = false
+
 @sys.description('The customer usage attribution ID for partners')
-param customerUsageAttributionId string = ''
+param parCustomerUsageAttributionId string = ''
 
 var varTopLevelManagementGroup = {
   name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}' : '${parTopLevelManagementGroupPrefix}-${parManagementGroupSuffix}'
@@ -107,7 +110,7 @@ var varSandboxManagementGroup = {
   displayName: 'Sandbox'
 }
 
-var varToplevelManagementGroupParentId = empty(parTopLevelManagementGroupParentId) ? '/providers/Microsoft.Management/managementGroups/${tenant().tenantId}' : 'providers/Microsoft.Management/managementGroups/${parTopLevelManagementGroupParentId}'
+var varToplevelManagementGroupParentId = empty(parTopLevelManagementGroupParentId) ? '/providers/Microsoft.Management/managementGroups/${tenant().tenantId}' : parTopLevelManagementGroupParentId
 
 // Level 0 Management Group
 resource resTopLevelManagementGroup 'Microsoft.Management/managementGroups@2021-04-01' = {
@@ -197,7 +200,7 @@ resource resLandingZoneChildrenManagementGroups 'Microsoft.Management/management
 }]
 
 // Level 3 Management Groups
-module modManagementGroupDataClassification 'managementGroupsDataClassification.bicep' = [for (item, index) in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups)) {
+module modManagementGroupDataClassification 'managementGroupsDataClassification.bicep' = [for (item, index) in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups) && !empty(parLandingZoneChildrenDataClassificationManagementGroups)) {
   name: '${resLandingZoneChildrenManagementGroups[index].name}-data-classification'
   params: {
     parLandingZoneChildrenDataClassificationManagementGroups: parLandingZoneChildrenDataClassificationManagementGroups
@@ -209,8 +212,8 @@ module modManagementGroupDataClassification 'managementGroupsDataClassification.
 }]
 
 // Optional Deployment for Customer Usage Attribution
-module modCustomerUsageAttribution '../emptyDeployments/customerUsageAttributionTenant.bicep' = if (!empty(customerUsageAttributionId)) {
+module modCustomerUsageAttribution '../emptyDeployments/customerUsageAttributionTenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
   #disable-next-line no-loc-expr-outside-params //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information
-  name: 'pid-${customerUsageAttributionId}-${uniqueString(deployment().location)}'
+  name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}
 }
