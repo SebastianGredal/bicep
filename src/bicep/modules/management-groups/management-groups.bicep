@@ -200,7 +200,7 @@ resource resLandingZoneChildrenManagementGroups 'Microsoft.Management/management
 }]
 
 // Level 3 Management Groups
-module modManagementGroupDataClassification 'managementGroupsDataClassification.bicep' = [for (item, index) in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups) && !empty(parLandingZoneChildrenDataClassificationManagementGroups)) {
+module modManagementGroupDataClassification 'management-groups-data-classification.bicep' = [for (item, index) in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && parLandingZonesDataClassificationManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups) && !empty(parLandingZoneChildrenDataClassificationManagementGroups)) {
   name: '${resLandingZoneChildrenManagementGroups[index].name}-data-classification'
   params: {
     parLandingZoneChildrenDataClassificationManagementGroups: parLandingZoneChildrenDataClassificationManagementGroups
@@ -212,7 +212,7 @@ module modManagementGroupDataClassification 'managementGroupsDataClassification.
 }]
 
 // Optional Deployment for Customer Usage Attribution
-module modCustomerUsageAttribution '../empty-deployments/customerUsageAttributionTenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
+module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-tenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
   #disable-next-line no-loc-expr-outside-params //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}

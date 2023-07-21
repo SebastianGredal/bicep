@@ -15,7 +15,7 @@ targetScope = 'tenant'
 // ---------
 
 @description('Baseline resource configuration')
-module baseline '../managementGroups.bicep' = {
+module baseline '../management-groups.bicep' = {
   name: 'baseline'
   params: {
     parTopLevelManagementGroupPrefix: 'TEST'
