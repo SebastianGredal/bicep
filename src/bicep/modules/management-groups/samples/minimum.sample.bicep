@@ -15,7 +15,7 @@ targetScope = 'tenant'
 // ---------
 
 @description('Minimum resource configuration')
-module minimum '../managementGroups.bicep' = {
+module minimum '../management-groups.bicep' = {
   name: 'minimum'
   params: {}
 }
