@@ -212,7 +212,7 @@ module modManagementGroupDataClassification 'managementGroupsDataClassification.
 }]
 
 // Optional Deployment for Customer Usage Attribution
-module modCustomerUsageAttribution '../emptyDeployments/customerUsageAttributionTenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
+module modCustomerUsageAttribution '../empty-deployments/customerUsageAttributionTenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
   #disable-next-line no-loc-expr-outside-params //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}
