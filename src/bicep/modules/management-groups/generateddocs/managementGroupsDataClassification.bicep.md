@@ -51,7 +51,7 @@ The top level management group prefix
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/modules/managementGroups/managementGroupsDataClassification.json"
+        "template": "src/bicep/modules/management-groups/managementGroupsDataClassification.json"
     },
     "parameters": {
         "parName": {
