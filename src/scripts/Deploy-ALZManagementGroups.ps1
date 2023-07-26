@@ -21,11 +21,13 @@ $inputObject = @{
   WhatIf                = $WhatIfEnabled
   Verbose               = $true
 }
-Write-Output $inputObject.WhatIf
+
 if ($inputOjbject.WhatIf) {
-  az deployment tenant create --name $inputObject.DeploymentName --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --what-if --verbose
+  Write-Output 'What-If deployment is enabled. Deployment will not be executed.'
+  az deployment tenant what-if --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
 }
 else {
+  Write-Output 'What-If deployment is disabled. Deployment will be executed.'
   az deployment tenant create --name $inputObject.DeploymentName --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
 }
 
