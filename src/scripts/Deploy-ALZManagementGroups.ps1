@@ -22,7 +22,7 @@ $inputObject = @{
   Verbose               = $true
 }
 
-if ($inputOjbject.WhatIf) {
+if ($inputObject.WhatIf) {
   Write-Output 'What-If deployment is enabled. Deployment will not be executed.'
   az deployment tenant what-if --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
 }
