@@ -22,4 +22,11 @@ $inputObject = @{
   Verbose               = $true
 }
 
-New-AzTenantDeployment @inputObject
+if ($inputOjbject.WhatIf) {
+  az deployment tenant create --name $inputObject.DeploymentName --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --what-if --verbose
+}
+else {
+  az deployment tenant create --name $inputObject.DeploymentName --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
+}
+
+#New-AzTenantDeployment @inputObject
