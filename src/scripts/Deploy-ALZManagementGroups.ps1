@@ -3,7 +3,7 @@ param (
   [String]$Location = "$($env:LOCATION)",
 
   [Parameter()]
-  [String]$TemplateFile = 'src\bicep\modules\managementGroups\managementGroups.bicep',
+  [String]$TemplateFile = 'src\bicep\managementGroups\managementGroups.bicep',
 
   [Parameter()]
   [String]$TemplateParameterFile = 'src\bicep\management-groups\parameters\management-groups.all.bicepparam',
