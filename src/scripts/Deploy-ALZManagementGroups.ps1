@@ -13,22 +13,14 @@ param (
 )
 
 # Parameters necessary for deployment
-$inputObject = @{
-  DeploymentName        = 'alz-MGDeployment-{0}' -f ( -join (Get-Date -Format 'yyyyMMddTHHMMssffffZ')[0..63])
-  Location              = $Location
-  TemplateFile          = $TemplateFile
-  TemplateParameterFile = $TemplateParameterFile
-  WhatIf                = $WhatIfEnabled
-  Verbose               = $true
-}
+$DeploymentName = 'alz-MGDeployment-{0}' -f ( -join (Get-Date -Format 'yyyyMMddTHHMMssffffZ')[0..63])
 
-if ($inputObject.WhatIf) {
+# Create the deployment
+if ($WhatIfEnabled) {
   Write-Output 'What-If deployment is enabled. Deployment will not be executed.'
-  az deployment tenant what-if --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
+  az deployment tenant what-if --location $Location --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
 }
 else {
   Write-Output 'What-If deployment is disabled. Deployment will be executed.'
-  az deployment tenant create --name $inputObject.DeploymentName --location $inputObject.Location --template-file $inputObject.TemplateFile --parameters $inputObject.TemplateParameterFile --verbose
+  az deployment tenant create --name $DeploymentName --location $Location --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
 }
-
-#New-AzTenantDeployment @inputObject
