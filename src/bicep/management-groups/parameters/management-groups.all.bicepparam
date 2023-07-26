@@ -1,4 +1,4 @@
-using '../managementGroups.bicep'
+using '../management-groups.bicep'
 
 param parManagementGroupSuffix = ''
 param parTopLevelManagementGroupPrefix = 'MGT'
@@ -51,4 +51,4 @@ param parLandingZoneChildrenDataClassificationManagementGroups = [
     displayName: 'Highly Confidential'
   }
 ]
-param customerUsageAttributionId = ''
+param parCustomerUsageAttributionId = ''
