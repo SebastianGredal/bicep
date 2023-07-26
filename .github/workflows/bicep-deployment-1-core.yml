@@ -18,7 +18,7 @@ permissions:
 
 env:
     ENV_FILE: ".env"
-    IS_PULL_REQUEST: ${{ github.event_name == 'pull_request' }}
+    IS_PULL_REQUEST: "${{ github.event_name == 'pull_request' }}"
 
 jobs:
     build:
@@ -47,11 +47,6 @@ jobs:
                   tenant-id: ${{ secrets.AZURE_TENANT_ID }}
                   subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
-
-            - name: test
-              shell: pwsh
-              run: |
-                bicep --version
 
             - name: "Management Groups Deployment"
               uses: azure/powershell@v1
