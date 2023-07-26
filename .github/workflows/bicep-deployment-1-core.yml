@@ -51,7 +51,7 @@ jobs:
             - name: test
               shell: pwsh
               run: |
-                ls src/bicep/ -r
+                bicep --version
 
             - name: "Management Groups Deployment"
               uses: azure/powershell@v1
