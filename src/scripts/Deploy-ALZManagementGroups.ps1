@@ -3,10 +3,10 @@ param (
   [String]$Location = "$($env:LOCATION)",
 
   [Parameter()]
-  [String]$TemplateFile = 'src\bicep\managementGroups\managementGroups.bicep',
+  [String]$TemplateFile = '.\src\bicep\management-groups\management-groups.bicep',
 
   [Parameter()]
-  [String]$TemplateParameterFile = 'src\bicep\management-groups\parameters\management-groups.all.bicepparam',
+  [String]$TemplateParameterFile = '.\src\bicep\management-groups\parameters\management-groups.all.bicepparam',
 
   [Parameter()]
   [Boolean]$WhatIfEnabled = [System.Convert]::ToBoolean($($env:IS_PULL_REQUEST))
