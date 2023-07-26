@@ -48,6 +48,11 @@ jobs:
                   subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
 
+            - name: test
+              shell: pwsh
+              run: |
+                ls src/bicep/ -r
+
             - name: "Management Groups Deployment"
               uses: azure/powershell@v1
               with:
