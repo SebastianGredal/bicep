@@ -1,10 +1,6 @@
 name: Deployment - Core
 
 on:
-    workflow_run:
-        workflows: ["Unit Tests - Bicep Files and Modules"]
-        types:
-            - completed
     push:
         branches:
             - main
