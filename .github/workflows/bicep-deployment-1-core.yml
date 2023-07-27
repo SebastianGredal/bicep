@@ -4,11 +4,13 @@ on:
     push:
         branches:
             - main
+        paths: 
+            - "src/bicep/modules/management-groups/**"
     pull_request:
         branches:
             - main
         paths:
-            - "src/bicep/modules/management-groups/*"
+            - "src/bicep/modules/management-groups/**"
     workflow_dispatch:
 
 permissions:
