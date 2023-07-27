@@ -226,7 +226,8 @@ The customer usage attribution ID for partners
                     "parAddressPrefix": "10.100.0.0/23",
                     "parLocation": "[parameters('parLocation')]",
                     "parHubRoutingPreference": "ExpressRoute",
-                    "parVirtualRouterAutoScaleConfiguration": 2
+                    "parVirtualRouterAutoScaleConfiguration": 2,
+                    "parDnsResolverAddressPrefix": "10.200.0.0/28"
                 }
             ]
         },
