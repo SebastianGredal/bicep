@@ -123,7 +123,7 @@ Azure Firewall Tier associated with the Firewall to deploy.
 
 Azure Firewall Policies Name.
 
-- Default value: `[format('{0}-afwp-{1}', parameters('parPrefix'), parameters('parLocation'))]`
+- Default value: `[format('{0}-afwp', parameters('parPrefix'))]`
 
 ### parVpnGatewayScaleUnit
 
@@ -247,7 +247,7 @@ The customer usage attribution ID for partners
             "value": "Standard"
         },
         "parAzFirewallPoliciesName": {
-            "value": "[format('{0}-afwp-{1}', parameters('parPrefix'), parameters('parLocation'))]"
+            "value": "[format('{0}-afwp', parameters('parPrefix'))]"
         },
         "parVpnGatewayScaleUnit": {
             "value": 1

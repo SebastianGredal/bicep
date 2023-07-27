@@ -48,9 +48,9 @@ Name | Type | Description
 outDnsResolverId | string |
 outDnsResolverName | string |
 outDnsResolverInboundIp | string |
-outVnetId | string |
-outVnetName | string |
-outSnetInboundId | string |
+outVirtualNetworkId | string |
+outVirtualNetworkName | string |
+outSubnetInboundId | string |
 
 ## Snippets
 
