@@ -70,7 +70,7 @@ param parAzFirewallAvailabilityZones array = []
 param parAzFirewallTier string = 'Standard'
 
 @sys.description('Azure Firewall Policies Name.')
-param parAzFirewallPoliciesName string = '${parPrefix}-afwp-${parLocation}'
+param parAzFirewallPoliciesName string = '${parPrefix}-afwp'
 
 @sys.description('The scale unit for this VPN Gateway.')
 param parVpnGatewayScaleUnit int = 1
@@ -150,14 +150,14 @@ resource resVHubRouteTable 'Microsoft.Network/virtualHubs/hubRouteTables@2023-02
         ]
         destinationType: 'CIDR'
         nextHop: resAzureFirewall[i].id
-        nextHopType: 'ResourceID'
+        nextHopType: 'ResourceId'
       }
     ]
   }
 }]
 
-resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = if (parVirtualHubEnabled && parVirtualWanHubs[0].parAzFirewallEnabled) {
-  name: parAzFirewallPoliciesName
+resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
+  name: '${parAzFirewallPoliciesName}-${item.parLocation}'
   location: parLocation
   tags: parTags
   properties: (parAzFirewallTier == 'Basic') ? {
@@ -166,13 +166,16 @@ resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = i
     }
   } : {
     dnsSettings: {
+      servers: [
+        modDnsResolvers[i].outputs.outDnsResolverInboundIp
+      ]
       enableProxy: parAzFirewallDnsProxyEnabled
     }
     sku: {
       tier: parAzFirewallTier
     }
   }
-}
+}]
 
 resource resAzureFirewall 'Microsoft.Network/azureFirewalls@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
   name: '${parAzFirewallName}-${item.parLocation}'
@@ -193,7 +196,7 @@ resource resAzureFirewall 'Microsoft.Network/azureFirewalls@2023-02-01' = [for (
       id: resVHub[i].id
     }
     firewallPolicy: {
-      id: resFirewallPolicies.id
+      id: resFirewallPolicies[i].id
     }
   }
 }]
@@ -244,6 +247,17 @@ module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for item in par
     parVirtualNetworkName: '${parPrefix}-vnet-${item.parLocation}'
     parLocation: item.parLocation
     parAddressPrefix: item.parDnsResolverAddressPrefix
+  }
+}]
+
+module modHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+  name: '${parPrefix}-vnet-peering-${item.parLocation}'
+  scope: subscription()
+  params: {
+    parRemoteVirtualNetworkResourceId: modDnsResolvers[i].outputs.outVirtualNetworkId
+    parVirtualWanHubResourceId: resVHub[i].id
+    parCustomerUsageAttributionId: ''
+    parEnableCustomerUsageAttributionId: false
   }
 }]
 
