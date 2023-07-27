@@ -23,7 +23,7 @@ env:
     IS_PULL_REQUEST: "${{ github.event_name == 'pull_request' }}"
 
 jobs:
-    build:
+    deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
