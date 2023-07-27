@@ -40,6 +40,7 @@ param parVirtualWanHubs array = [ {
     parLocation: parLocation
     parHubRoutingPreference: 'ExpressRoute' //allowed values are 'ASN','VpnGateway','ExpressRoute'.
     parVirtualRouterAutoScaleConfiguration: 2 //minimum capacity should be between 2 to 50
+    parDnsResolverAddressPrefix: '10.200.0.0/28'
   }
 ]
 
@@ -235,6 +236,16 @@ resource resDdosProtectionPlan 'Microsoft.Network/ddosProtectionPlans@2023-02-01
   location: parLocation
   tags: parTags
 }
+
+module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for item in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+  name: '${parPrefix}-dns-resolver-${item.parLocation}'
+  params: {
+    parPrefix: parPrefix
+    parVirtualNetworkName: '${parPrefix}-vnet-${item.parLocation}'
+    parLocation: item.parLocation
+    parAddressPrefix: item.parDnsResolverAddressPrefix
+  }
+}]
 
 module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-resource-group.bicep' = if (parEnableCustomerUsageAttributionId) {
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(parLocation)}'
