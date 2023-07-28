@@ -21,6 +21,9 @@ param parVirtualNetworkName string = '${parPrefix}-vnet-${parLocation}'
 @sys.description('parameter description')
 param parAddressPrefix string
 
+@sys.description('Tags you would like to be applied to all resources in this module.')
+param parTags object = {}
+
 // ---------
 // VARIABLES
 // ---------
@@ -31,6 +34,7 @@ param parAddressPrefix string
 resource resVnet 'Microsoft.Network/virtualNetworks@2023-02-01' = {
   name: parVirtualNetworkName
   location: parLocation
+  tags: parTags
   properties: {
     addressSpace: {
       addressPrefixes: [
@@ -62,6 +66,7 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-02-01' = {
 resource resDnsResolver 'Microsoft.Network/dnsResolvers@2022-07-01' = {
   name: '${parPrefix}-dnspr-${parLocation}'
   location: parLocation
+  tags: parTags
   properties: {
     virtualNetwork: {
       id: resVnet.id
