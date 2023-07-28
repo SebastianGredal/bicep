@@ -10,6 +10,7 @@ parPrefix      | No       | parameter description
 parLocation    | No       | parameter description
 parVirtualNetworkName | No       | parameter description
 parAddressPrefix | Yes      | parameter description
+parTags        | No       | Tags you would like to be applied to all resources in this module.
 
 ### parPrefix
 
@@ -40,6 +41,12 @@ parameter description
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
 parameter description
+
+### parTags
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Tags you would like to be applied to all resources in this module.
 
 ## Outputs
 
@@ -75,6 +82,9 @@ outSubnetInboundId | string |
         },
         "parAddressPrefix": {
             "value": ""
+        },
+        "parTags": {
+            "value": {}
         }
     }
 }
