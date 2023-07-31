@@ -27,7 +27,6 @@ module baseline '../management-groups.bicep' = {
     parLandinZonesManagementGroupsEnabled: true
     parSandboxManagementGroupsEnabled: true
     parDecommissionedManagementGroupsEnabled: true
-    parEnableCustomerUsageAttributionId: false
     parLandingZonesDataClassificationManagementGroupsEnabled: true
     parPlatformChildrenManagementGroups: [
       {
