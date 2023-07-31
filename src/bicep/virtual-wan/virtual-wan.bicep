@@ -28,6 +28,7 @@ param parVirtualHubName string = '${parPrefix}-vhub'
 - `parHubRoutingPreference` - The Virtual WAN Hub routing preference. The allowed values are `ASN`, `VpnGateway`, `ExpressRoute`.
 - `parVirtualRouterAutoScaleConfiguration` - The Virtual WAN Hub capacity. The value should be between 2 to 50.
 - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are.
+- `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use.
 - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub.
 
 ''')
@@ -35,7 +36,7 @@ param parVirtualWanHubs array = [ {
     parVpnGatewayEnabled: true
     parExpressRouteGatewayEnabled: true
     parAzFirewallEnabled: true
-    parAddressPrefix: '10.100.0.0/23'
+    parVirtualHubAddressPrefix: '10.100.0.0/23'
     parLocation: parLocation
     parHubRoutingPreference: 'ExpressRoute' //allowed values are 'ASN','VpnGateway','ExpressRoute'.
     parVirtualRouterAutoScaleConfiguration: 2 //minimum capacity should be between 2 to 50
@@ -186,12 +187,12 @@ resource resVwan 'Microsoft.Network/virtualWans@2023-02-01' = {
   }
 }
 
-resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parAddressPrefix)) {
+resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parVirtualHubAddressPrefix)) {
   name: '${parVirtualHubName}-${item.parLocation}'
   location: item.parLocation
   tags: parTags
   properties: {
-    addressPrefix: item.parAddressPrefix
+    addressPrefix: item.parVirtualHubAddressPrefix
     sku: 'Standard'
     virtualWan: {
       id: resVwan.id
