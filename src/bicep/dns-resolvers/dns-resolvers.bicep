@@ -1,10 +1,7 @@
-//
-// Baseline resource sample
-//
 targetScope = 'resourceGroup'
 
-metadata name = 'dns resolver'
-metadata description = 'dns resolver for private link'
+metadata name = 'DNS Resolver Module'
+metadata description = 'Moduele for DNS resolution for private endpoints in hub and spoke network topology'
 
 // ----------
 // PARAMETERS

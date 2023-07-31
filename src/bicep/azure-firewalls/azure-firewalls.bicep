@@ -1,3 +1,8 @@
+targetScope = 'resourceGroup'
+
+metadata name = 'Azure Firewalls Module'
+metadata description = 'Module for deployment of Azure Firewalls'
+
 @sys.description('Prefix for all resources')
 param parPrefix string = 'anq'
 

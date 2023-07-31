@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 
-metadata name = 'ALZ Bicep - Virtual Network Peering to vWAN'
+metadata name = 'Virtual Network Peering to vWAN'
 metadata description = 'Module used to set up Virtual Network Peering from Virtual Network back to vWAN'
 
 @sys.description('Virtual WAN Hub resource ID.')
@@ -8,9 +8,6 @@ param parVirtualWanHubResourceId string
 
 @sys.description('Remote Spoke virtual network resource ID.')
 param parRemoteVirtualNetworkResourceId string
-
-@sys.description('Whether to enable the customer usage attribution deployment')
-param parEnableCustomerUsageAttributionId bool = false
 
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
@@ -34,7 +31,7 @@ module modhubVirtualNetworkConnection 'hub-virtual-network-connection.bicep' = i
 }
 
 // Optional Deployment for Customer Usage Attribution
-module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-subscription.bicep' = if (!parEnableCustomerUsageAttributionId) {
+module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-subscription.bicep' = if (!empty(parCustomerUsageAttributionId)) {
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(subscription().id, varSpokeVnetName)}'
   params: {}
 }

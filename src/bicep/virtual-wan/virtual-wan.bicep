@@ -1,7 +1,7 @@
 targetScope = 'resourceGroup'
 
-metadata name = 'virtual wan'
-metadata description = 'module description'
+metadata name = 'Virtual WAN'
+metadata description = 'Module to deploy the initial hub and spoke environment for the rest of the landing zone'
 
 // ----------
 // PARAMETERS

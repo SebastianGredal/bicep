@@ -79,9 +79,6 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
   }
 ]
 
-@sys.description('Whether to enable the customer usage attribution deployment')
-param parEnableCustomerUsageAttributionId bool = false
-
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 
@@ -212,7 +209,7 @@ module modManagementGroupDataClassification 'management-groups-data-classificati
 }]
 
 // Optional Deployment for Customer Usage Attribution
-module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-tenant.bicep' = if (!empty(parCustomerUsageAttributionId) && parEnableCustomerUsageAttributionId) {
+module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-tenant.bicep' = if (!empty(parCustomerUsageAttributionId)) {
   #disable-next-line no-loc-expr-outside-params //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information //Only to ensure telemetry data is stored in same location as deployment. See https://github.com/Azure/ALZ-Bicep/wiki/FAQ#why-are-some-linter-rules-disabled-via-the-disable-next-line-bicep-function for more information
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}
