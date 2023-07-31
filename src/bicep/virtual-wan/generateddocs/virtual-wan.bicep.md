@@ -1,6 +1,6 @@
-# virtual wan
+# Virtual WAN
 
-module description
+Module to deploy the initial hub and spoke environment for the rest of the landing zone
 
 ## Parameters
 

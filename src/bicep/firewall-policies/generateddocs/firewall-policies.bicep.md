@@ -1,4 +1,6 @@
-# Azure template
+# Firewall Policies Module
+
+Module to deploy Azure Firewall Policies
 
 ## Parameters
 

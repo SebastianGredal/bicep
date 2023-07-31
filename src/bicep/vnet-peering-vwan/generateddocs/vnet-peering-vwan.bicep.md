@@ -1,4 +1,4 @@
-# ALZ Bicep - Virtual Network Peering to vWAN
+# Virtual Network Peering to vWAN
 
 Module used to set up Virtual Network Peering from Virtual Network back to vWAN
 
@@ -8,7 +8,6 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 parVirtualWanHubResourceId | Yes      | Virtual WAN Hub resource ID.
 parRemoteVirtualNetworkResourceId | Yes      | Remote Spoke virtual network resource ID.
-parEnableCustomerUsageAttributionId | No       | Whether to enable the customer usage attribution deployment
 parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
 
 ### parVirtualWanHubResourceId
@@ -22,14 +21,6 @@ Virtual WAN Hub resource ID.
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
 Remote Spoke virtual network resource ID.
-
-### parEnableCustomerUsageAttributionId
-
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
-
-Whether to enable the customer usage attribution deployment
-
-- Default value: `False`
 
 ### parCustomerUsageAttributionId
 
@@ -61,9 +52,6 @@ outHubVirtualNetworkConnectionResourceId | string |
         },
         "parRemoteVirtualNetworkResourceId": {
             "value": ""
-        },
-        "parEnableCustomerUsageAttributionId": {
-            "value": false
         },
         "parCustomerUsageAttributionId": {
             "value": ""

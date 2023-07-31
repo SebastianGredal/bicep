@@ -1,4 +1,4 @@
-# ALZ Bicep - Private DNS Zones
+# Private DNS Zones
 
 Module used to set up Private DNS Zones in accordance to Azure Landing Zones
 

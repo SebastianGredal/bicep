@@ -1,6 +1,6 @@
-# dns resolver
+# DNS Resolver Module
 
-dns resolver for private link
+Moduele for DNS resolution for private endpoints in hub and spoke network topology
 
 ## Parameters
 

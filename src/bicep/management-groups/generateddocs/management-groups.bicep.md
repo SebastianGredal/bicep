@@ -18,7 +18,6 @@ parLandingZonesDataClassificationManagementGroupsEnabled | No       | Whether to
 parPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups
 parLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups
 parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups
-parEnableCustomerUsageAttributionId | No       | Whether to enable the customer usage attribution deployment
 parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
 
 ### parManagementGroupSuffix
@@ -115,14 +114,6 @@ Array of objects containing the data classification levels of the landing zones 
 
 - Default value: `   `
 
-### parEnableCustomerUsageAttributionId
-
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
-
-Whether to enable the customer usage attribution deployment
-
-- Default value: `False`
-
 ### parCustomerUsageAttributionId
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
@@ -215,9 +206,6 @@ The customer usage attribution ID for partners
                     "displayName": "Highly Confidential"
                 }
             ]
-        },
-        "parEnableCustomerUsageAttributionId": {
-            "value": false
         },
         "parCustomerUsageAttributionId": {
             "value": ""
