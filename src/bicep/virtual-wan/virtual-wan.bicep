@@ -19,7 +19,6 @@ param parVirtualWANName string = '${parPrefix}-vwan-${parLocation}'
 param parVirtualHubName string = '${parPrefix}-vhub'
 
 @sys.description('''Array Used for multiple Virtual WAN Hubs deployment. Each object in the array represents an individual Virtual WAN Hub configuration. Add/remove additional objects in the array to meet the number of Virtual WAN Hubs required.
-
 - `parVpnGatewayEnabled` - Switch to enable/disable VPN Gateway deployment on the respective Virtual WAN Hub.
 - `parExpressRouteGatewayEnabled` - Switch to enable/disable ExpressRoute Gateway deployment on the respective Virtual WAN Hub.
 - `parAzFirewallEnabled` - Switch to enable/disable Azure Firewall deployment on the respective Virtual WAN Hub.
@@ -30,7 +29,6 @@ param parVirtualHubName string = '${parPrefix}-vhub'
 - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are.
 - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use.
 - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub.
-
 ''')
 param parVirtualWanHubs array = [ {
     parVpnGatewayEnabled: true
@@ -38,8 +36,8 @@ param parVirtualWanHubs array = [ {
     parAzFirewallEnabled: true
     parVirtualHubAddressPrefix: '10.100.0.0/23'
     parLocation: parLocation
-    parHubRoutingPreference: 'ExpressRoute' //allowed values are 'ASN','VpnGateway','ExpressRoute'.
-    parVirtualRouterAutoScaleConfiguration: 2 //minimum capacity should be between 2 to 50
+    parHubRoutingPreference: 'ExpressRoute'
+    parVirtualRouterAutoScaleConfiguration: 2
     parHubResourceGroup: resourceGroup().name
     parDnsResolverAddressPrefix: '10.200.0.0/28'
     parPrivateDnsZoneAutoMergeAzureBackupZone: true

@@ -7,7 +7,6 @@ metadata description = 'Module for deployment of a management group structure ba
 param parManagementGroupSuffix string = ''
 
 @sys.description('The prefix to use for the top level management group')
-
 param parTopLevelManagementGroupPrefix string = 'MGT'
 
 @sys.description('The display name to use for the top level management group')
