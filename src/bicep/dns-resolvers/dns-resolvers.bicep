@@ -13,7 +13,7 @@ param parPrefix string = 'anq'
 param parLocation string = resourceGroup().location
 
 @sys.description('parameter description')
-param parVirtualNetworkName string = '${parPrefix}-vnet-${parLocation}'
+param parVirtualNetworkName string = '${parPrefix}-vnet-dns-${parLocation}'
 
 @sys.description('parameter description')
 param parAddressPrefix string

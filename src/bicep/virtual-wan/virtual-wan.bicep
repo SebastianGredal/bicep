@@ -6,7 +6,7 @@ metadata description = 'Module to deploy the initial hub and spoke environment f
 // ----------
 // PARAMETERS
 // ----------
-@sys.description('parameter description')
+@sys.description('The Azure Region to deploy the resources into.')
 param parLocation string = resourceGroup().location
 
 @sys.description('Prefix for all resources')
@@ -29,6 +29,8 @@ param parVirtualHubName string = '${parPrefix}-vhub'
 - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are.
 - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use.
 - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub.
+- `parBastionAddressPrefix` - The IP address range in CIDR notation for the Bastion to use.
+- `parBastionEnabled` - Switch to enable/disable Bastion deployment on the respective Virtual WAN Hub.
 ''')
 param parVirtualWanHubs array = [ {
     parVpnGatewayEnabled: true
@@ -39,8 +41,10 @@ param parVirtualWanHubs array = [ {
     parHubRoutingPreference: 'ExpressRoute'
     parVirtualRouterAutoScaleConfiguration: 2
     parHubResourceGroup: resourceGroup().name
-    parDnsResolverAddressPrefix: '10.200.0.0/28'
+    parDnsResolverAddressPrefix: '10.101.0.0/28'
     parPrivateDnsZoneAutoMergeAzureBackupZone: true
+    parBastionAddressPrefix: '10.102.0.0/26'
+    parBastionEnabled: true
   }
 ]
 
@@ -202,26 +206,49 @@ resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVi
   }
 }]
 
-resource resVHubRouteTable 'Microsoft.Network/virtualHubs/hubRouteTables@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
+resource hubRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
   parent: resVHub[i]
-  name: 'defaultRouteTable'
+  name: 'hubRoutingIntent'
   properties: {
-    labels: [
-      'default'
-    ]
-    routes: [
+    routingPolicies: [
       {
-        name: 'all_traffic'
+        name: 'Internet'
         destinations: [
-          '0.0.0.0/0'
+          'Internet'
         ]
-        destinationType: 'CIDR'
         nextHop: modAzureFirewalls[i].outputs.outAzureFirewallsId
-        nextHopType: 'ResourceId'
+      }
+      {
+        name: 'PrivateTraffic'
+        destinations: [
+          'PrivateTraffic'
+        ]
+        nextHop: modAzureFirewalls[i].outputs.outAzureFirewallsId
       }
     ]
   }
 }]
+
+// resource resVHubRouteTable 'Microsoft.Network/virtualHubs/hubRouteTables@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
+//   parent: resVHub[i]
+//   name: 'defaultRouteTable'
+//   properties: {
+//     labels: [
+//       'default'
+//     ]
+//     routes: [
+//       {
+//         name: 'all_traffic'
+//         destinations: [
+//           '0.0.0.0/0'
+//         ]
+//         destinationType: 'CIDR'
+//         nextHop: modAzureFirewalls[i].outputs.outAzureFirewallsId
+//         nextHopType: 'ResourceId'
+//       }
+//     ]
+//   }
+// }]
 
 resource resParentFirewallPolicy 'Microsoft.Network/firewallPolicies@2023-02-01' = if (parVirtualHubEnabled && parVirtualWanHubs[0].parAzFirewallEnabled) {
   name: '${parAzFirewallPoliciesName}-global'
@@ -311,14 +338,14 @@ module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for (item, i) i
   params: {
     parPrefix: parPrefix
     parTags: parTags
-    parVirtualNetworkName: '${parPrefix}-vnet-${item.parLocation}'
+    parVirtualNetworkName: '${parPrefix}-vnet-dns-${item.parLocation}'
     parLocation: item.parLocation
     parAddressPrefix: item.parDnsResolverAddressPrefix
   }
 }]
 
 module modHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
-  name: '${parPrefix}-vnet-peering-${item.parLocation}'
+  name: '${parPrefix}-vnet-peering-dns-${item.parLocation}'
   scope: subscription()
   params: {
     parRemoteVirtualNetworkResourceId: modDnsResolvers[i].outputs.outVirtualNetworkId
@@ -336,6 +363,32 @@ module modPrivateDnsZones '../private-dns-zones/private-dns-zones.bicep' = [for 
     parPrivateDnsZones: parPrivateDnsZones
     parPrivateDnsZoneAutoMergeAzureBackupZone: item.parPrivateDnsZoneAutoMergeAzureBackupZone
     parVirtualNetworkIdToLink: modDnsResolvers[i].outputs.outVirtualNetworkId
+  }
+}]
+
+module modBastion '../bastion/bastion.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parBastionEnabled) {
+  name: '${parPrefix}-bastion-${item.parLocation}'
+  scope: resourceGroup(item.parHubResourceGroup)
+  params: {
+    parTags: parTags
+    parLocation: item.parLocation
+    parAddressPrefix: item.parBastionAddressPrefix
+    parBastionName: '${parPrefix}-bastion-${item.parLocation}'
+    parVirtualNetworkName: '${parPrefix}-vnet-bastion-${item.parLocation}'
+    parBastionSku: 'Standard'
+    parPrefix: parPrefix
+    parPublicIpSku: 'Standard'
+    parScaleUnits: 2
+  }
+}]
+
+module modBastionHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parBastionEnabled) {
+  name: '${parPrefix}-vnet-peering-bastion-${item.parLocation}'
+  scope: subscription()
+  params: {
+    parRemoteVirtualNetworkResourceId: modBastion[i].outputs.outVirtualNetworkId
+    parVirtualWanHubResourceId: resVHub[i].id
+    parCustomerUsageAttributionId: ''
   }
 }]
 

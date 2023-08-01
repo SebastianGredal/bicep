@@ -11,11 +11,13 @@ param parVirtualWanHubs = [
     parAzFirewallEnabled: true
     parVirtualHubAddressPrefix: '10.100.0.0/23'
     parLocation: parLocation
-    parHubRoutingPreference: 'ExpressRoute' //allowed values are 'ASN','VpnGateway','ExpressRoute'.
-    parVirtualRouterAutoScaleConfiguration: 2 //minimum capacity should be between 2 to 50
+    parHubRoutingPreference: 'ExpressRoute'
+    parVirtualRouterAutoScaleConfiguration: 2
     parHubResourceGroup: 'sbg-test'
-    parDnsResolverAddressPrefix: '10.200.0.0/28'
+    parDnsResolverAddressPrefix: '10.101.0.0/28'
     parPrivateDnsZoneAutoMergeAzureBackupZone: true
+    parBastionAddressPrefix: '10.102.0.0/26'
+    parBastionEnabled: true
   }
 ]
 param parVpnGatewayName = '${parPrefix}-vpngw'
