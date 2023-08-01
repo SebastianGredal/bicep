@@ -6,11 +6,11 @@ Module to deploy the initial hub and spoke environment for the rest of the landi
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-parLocation    | No       | parameter description
+parLocation    | No       | The Azure Region to deploy the resources into.
 parPrefix      | No       | Prefix for all resources
 parVirtualWANName | No       | Name of the virtual wan
 parVirtualHubName | No       | Name of the virtual hub
-parVirtualWanHubs | No       | Array Used for multiple Virtual WAN Hubs deployment. Each object in the array represents an individual Virtual WAN Hub configuration. Add/remove additional objects in the array to meet the number of Virtual WAN Hubs required. - `parVpnGatewayEnabled` - Switch to enable/disable VPN Gateway deployment on the respective Virtual WAN Hub. - `parExpressRouteGatewayEnabled` - Switch to enable/disable ExpressRoute Gateway deployment on the respective Virtual WAN Hub. - `parAzFirewallEnabled` - Switch to enable/disable Azure Firewall deployment on the respective Virtual WAN Hub. - `parVirtualHubAddressPrefix` - The IP address range in CIDR notation for the vWAN virtual Hub to use. - `parHubLocation` - The Virtual WAN Hub location. - `parHubRoutingPreference` - The Virtual WAN Hub routing preference. The allowed values are `ASN`, `VpnGateway`, `ExpressRoute`. - `parVirtualRouterAutoScaleConfiguration` - The Virtual WAN Hub capacity. The value should be between 2 to 50. - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are. - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use. - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub. 
+parVirtualWanHubs | No       | Array Used for multiple Virtual WAN Hubs deployment. Each object in the array represents an individual Virtual WAN Hub configuration. Add/remove additional objects in the array to meet the number of Virtual WAN Hubs required. - `parVpnGatewayEnabled` - Switch to enable/disable VPN Gateway deployment on the respective Virtual WAN Hub. - `parExpressRouteGatewayEnabled` - Switch to enable/disable ExpressRoute Gateway deployment on the respective Virtual WAN Hub. - `parAzFirewallEnabled` - Switch to enable/disable Azure Firewall deployment on the respective Virtual WAN Hub. - `parVirtualHubAddressPrefix` - The IP address range in CIDR notation for the vWAN virtual Hub to use. - `parHubLocation` - The Virtual WAN Hub location. - `parHubRoutingPreference` - The Virtual WAN Hub routing preference. The allowed values are `ASN`, `VpnGateway`, `ExpressRoute`. - `parVirtualRouterAutoScaleConfiguration` - The Virtual WAN Hub capacity. The value should be between 2 to 50. - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are. - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use. - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub. - `parBastionAddressPrefix` - The IP address range in CIDR notation for the Bastion to use. - `parBastionEnabled` - Switch to enable/disable Bastion deployment on the respective Virtual WAN Hub. 
 parVpnGatewayName | No       | Prefix Used for VPN Gateway.
 parExpressRouteGatewayName | No       | Prefix Used for ExpressRoute Gateway.
 parAzFirewallName | No       | Azure Firewall Name.
@@ -31,7 +31,7 @@ parCustomerUsageAttributionId | No       | The customer usage attribution ID for
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-parameter description
+The Azure Region to deploy the resources into.
 
 - Default value: `[resourceGroup().location]`
 
@@ -74,6 +74,8 @@ Array Used for multiple Virtual WAN Hubs deployment. Each object in the array re
 - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are.
 - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use.
 - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub.
+- `parBastionAddressPrefix` - The IP address range in CIDR notation for the Bastion to use.
+- `parBastionEnabled` - Switch to enable/disable Bastion deployment on the respective Virtual WAN Hub.
 
 
 ### parVpnGatewayName
@@ -229,8 +231,10 @@ The customer usage attribution ID for partners
                     "parHubRoutingPreference": "ExpressRoute",
                     "parVirtualRouterAutoScaleConfiguration": 2,
                     "parHubResourceGroup": "[resourceGroup().name]",
-                    "parDnsResolverAddressPrefix": "10.200.0.0/28",
-                    "parPrivateDnsZoneAutoMergeAzureBackupZone": true
+                    "parDnsResolverAddressPrefix": "10.101.0.0/28",
+                    "parPrivateDnsZoneAutoMergeAzureBackupZone": true,
+                    "parBastionAddressPrefix": "10.102.0.0/26",
+                    "parBastionEnabled": true
                 }
             ]
         },

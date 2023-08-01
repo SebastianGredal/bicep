@@ -34,7 +34,7 @@ parameter description
 
 parameter description
 
-- Default value: `[format('{0}-vnet-{1}', parameters('parPrefix'), parameters('parLocation'))]`
+- Default value: `[format('{0}-vnet-dns-{1}', parameters('parPrefix'), parameters('parLocation'))]`
 
 ### parAddressPrefix
 
@@ -78,7 +78,7 @@ outSubnetInboundId | string |
             "value": "[resourceGroup().location]"
         },
         "parVirtualNetworkName": {
-            "value": "[format('{0}-vnet-{1}', parameters('parPrefix'), parameters('parLocation'))]"
+            "value": "[format('{0}-vnet-dns-{1}', parameters('parPrefix'), parameters('parLocation'))]"
         },
         "parAddressPrefix": {
             "value": ""
