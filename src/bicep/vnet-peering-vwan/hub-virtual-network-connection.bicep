@@ -19,6 +19,9 @@ resource resVnetPeeringVwan 'Microsoft.Network/virtualHubs/hubVirtualNetworkConn
     remoteVirtualNetwork: {
       id: parRemoteVirtualNetworkResourceId
     }
+    enableInternetSecurity: true
+    allowHubToRemoteVnetTransit: true
+    allowRemoteVnetToUseHubVnetGateways: true
   }
 }
 

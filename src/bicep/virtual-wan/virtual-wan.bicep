@@ -203,10 +203,14 @@ resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVi
     virtualRouterAutoScaleConfiguration: {
       minCapacity: item.parVirtualRouterAutoScaleConfiguration
     }
+    allowBranchToBranchTraffic: true
   }
 }]
 
 resource hubRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
+  dependsOn: [
+    modFirewallPolicies
+  ]
   parent: resVHub[i]
   name: 'hubRoutingIntent'
   properties: {
@@ -345,6 +349,9 @@ module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for (item, i) i
 }]
 
 module modHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+  dependsOn: [
+    hubRoutingIntent
+  ]
   name: '${parPrefix}-vnet-peering-dns-${item.parLocation}'
   scope: subscription()
   params: {
@@ -383,6 +390,9 @@ module modBastion '../bastion/bastion.bicep' = [for (item, i) in parVirtualWanHu
 }]
 
 module modBastionHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parBastionEnabled) {
+  dependsOn: [
+    hubRoutingIntent
+  ]
   name: '${parPrefix}-vnet-peering-bastion-${item.parLocation}'
   scope: subscription()
   params: {
