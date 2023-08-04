@@ -1,7 +1,7 @@
 targetScope = 'resourceGroup'
 
-metadata name = 'module name'
-metadata description = 'module description'
+metadata name = 'Bastion Module '
+metadata description = 'Module to deploy Azure Bastion Host'
 
 // ----------
 // PARAMETERS

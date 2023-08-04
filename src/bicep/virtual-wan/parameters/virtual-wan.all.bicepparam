@@ -25,6 +25,7 @@ param parExpressRouteGatewayName = '${parPrefix}-ergw'
 param parAzFirewallName = '${parPrefix}-fw'
 param parAzFirewallAvailabilityZones = []
 param parAzFirewallTier = 'Standard'
+param parAzFirewallThreatIntelMode = 'Deny'
 param parAzFirewallPoliciesName = '${parPrefix}-afwp'
 param parVpnGatewayScaleUnit = 1
 param parExpressRouteGatewayScaleUnit = 1

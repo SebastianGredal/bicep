@@ -1,3 +1,5 @@
+targetScope = 'resourceGroup'
+
 metadata name = 'Private DNS Zones'
 metadata description = 'Module used to set up Private DNS Zones in accordance to Azure Landing Zones'
 

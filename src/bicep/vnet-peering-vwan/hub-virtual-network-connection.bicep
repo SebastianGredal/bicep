@@ -7,6 +7,9 @@ param parVirtualWanHubResourceId string
 @sys.description('Remote Spoke virtual network resource ID.')
 param parRemoteVirtualNetworkResourceId string
 
+@sys.description('Enable Internet Security.')
+param parEnableInternetSecurity bool = true
+
 var varVwanHubName = split(parVirtualWanHubResourceId, '/')[8]
 
 var varSpokeVnetName = split(parRemoteVirtualNetworkResourceId, '/')[8]
@@ -19,7 +22,7 @@ resource resVnetPeeringVwan 'Microsoft.Network/virtualHubs/hubVirtualNetworkConn
     remoteVirtualNetwork: {
       id: parRemoteVirtualNetworkResourceId
     }
-    enableInternetSecurity: true
+    enableInternetSecurity: parEnableInternetSecurity
     allowHubToRemoteVnetTransit: true
     allowRemoteVnetToUseHubVnetGateways: true
   }

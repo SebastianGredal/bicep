@@ -9,6 +9,9 @@ param parVirtualWanHubResourceId string
 @sys.description('Remote Spoke virtual network resource ID.')
 param parRemoteVirtualNetworkResourceId string
 
+@sys.description('Enable Internet Security.')
+param parEnableInternetSecurity bool = true
+
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 
@@ -25,6 +28,7 @@ module modhubVirtualNetworkConnection 'hub-virtual-network-connection.bicep' = i
   scope: resourceGroup(varVwanSubscriptionId, varVwanResourceGroup)
   name: varModhubVirtualNetworkConnectionDeploymentName
   params: {
+    parEnableInternetSecurity: parEnableInternetSecurity
     parVirtualWanHubResourceId: parVirtualWanHubResourceId
     parRemoteVirtualNetworkResourceId: parRemoteVirtualNetworkResourceId
   }

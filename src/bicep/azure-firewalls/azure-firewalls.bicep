@@ -9,7 +9,7 @@ param parPrefix string = 'anq'
 @sys.description('Azure Firewall Name.')
 param parAzFirewallName string = '${parPrefix}-fw-${parLocation}'
 
-@sys.description('parameter description')
+@sys.description('The Azure Region to deploy the resources into.')
 param parLocation string = 'westeurope'
 
 @sys.description('Azure Firewall Tier associated with the Firewall to deploy.')

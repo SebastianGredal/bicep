@@ -9,7 +9,7 @@ param parPrefix string = 'anq'
 @sys.description('Azure Firewall Name.')
 param parAzFirewallPoliciesName string = '${parPrefix}-afwp-${parLocation}'
 
-@sys.description('parameter description')
+@sys.description('The Azure Region to deploy the resources into.')
 param parLocation string = 'westeurope'
 
 @sys.description('Azure Firewall Tier associated with the Firewall to deploy.')
@@ -28,6 +28,13 @@ param parBaseFirewallPolicyId string = ''
 
 @sys.description('The DNS Servers to be used by the Firewall Policy.')
 param parDnsServers array
+
+@sys.description('Azure Firewall Threat Intel Mode.')
+@allowed([
+  'Alert'
+  'Deny'
+])
+param parAzFirewallThreatIntelMode string = 'Deny'
 
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object
@@ -51,6 +58,7 @@ resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = {
     sku: {
       tier: parAzFirewallTier
     }
+    threatIntelMode: parAzFirewallThreatIntelMode
   }
 }
 
