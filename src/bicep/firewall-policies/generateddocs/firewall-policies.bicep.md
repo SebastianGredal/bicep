@@ -8,11 +8,12 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 parPrefix      | No       | Prefix for all resources
 parAzFirewallPoliciesName | No       | Azure Firewall Name.
-parLocation    | No       | parameter description
+parLocation    | No       | The Azure Region to deploy the resources into.
 parAzFirewallTier | No       | Azure Firewall Tier associated with the Firewall to deploy.
 parAzFirewallDnsProxyEnabled | No       | Switch to enable/disable Azure Firewall DNS Proxy.
 parBaseFirewallPolicyId | No       | The base policy to be associated with the Firewall Policy, if any.
 parDnsServers  | Yes      | The DNS Servers to be used by the Firewall Policy.
+parAzFirewallThreatIntelMode | No       | Azure Firewall Threat Intel Mode.
 parTags        | Yes      | Tags you would like to be applied to all resources in this module.
 
 ### parPrefix
@@ -35,7 +36,7 @@ Azure Firewall Name.
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-parameter description
+The Azure Region to deploy the resources into.
 
 - Default value: `westeurope`
 
@@ -68,6 +69,16 @@ The base policy to be associated with the Firewall Policy, if any.
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
 The DNS Servers to be used by the Firewall Policy.
+
+### parAzFirewallThreatIntelMode
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Azure Firewall Threat Intel Mode.
+
+- Default value: `Deny`
+
+- Allowed values: `Alert`, `Deny`
 
 ### parTags
 
@@ -114,6 +125,9 @@ outFirewallPoliciesName | string |
         },
         "parDnsServers": {
             "value": []
+        },
+        "parAzFirewallThreatIntelMode": {
+            "value": "Deny"
         },
         "parTags": {
             "value": {}

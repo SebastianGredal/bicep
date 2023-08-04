@@ -1,6 +1,6 @@
-# module name
+# Bastion Module 
 
-module description
+Module to deploy Azure Bastion Host
 
 ## Parameters
 

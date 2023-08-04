@@ -8,6 +8,7 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 parVirtualWanHubResourceId | Yes      | Virtual WAN Hub resource ID.
 parRemoteVirtualNetworkResourceId | Yes      | Remote Spoke virtual network resource ID.
+parEnableInternetSecurity | No       | Enable Internet Security.
 
 ### parVirtualWanHubResourceId
 
@@ -20,6 +21,14 @@ Virtual WAN Hub resource ID.
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
 Remote Spoke virtual network resource ID.
+
+### parEnableInternetSecurity
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Enable Internet Security.
+
+- Default value: `True`
 
 ## Outputs
 
@@ -45,6 +54,9 @@ outHubVirtualNetworkConnectionResourceId | string |
         },
         "parRemoteVirtualNetworkResourceId": {
             "value": ""
+        },
+        "parEnableInternetSecurity": {
+            "value": true
         }
     }
 }

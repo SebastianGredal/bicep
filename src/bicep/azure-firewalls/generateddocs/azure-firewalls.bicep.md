@@ -8,7 +8,7 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 parPrefix      | No       | Prefix for all resources
 parAzFirewallName | No       | Azure Firewall Name.
-parLocation    | No       | parameter description
+parLocation    | No       | The Azure Region to deploy the resources into.
 parAzFirewallTier | No       | Azure Firewall Tier associated with the Firewall to deploy.
 parAzFirewallAvailabilityZones | No       | Availability Zones to deploy the Azure Firewall across. Region must support Availability Zones to use. If it does not then leave empty.
 parVirtualHubId | Yes      | The Id of the Virtual Hub to deploy the Azure Firewall to.
@@ -35,7 +35,7 @@ Azure Firewall Name.
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-parameter description
+The Azure Region to deploy the resources into.
 
 - Default value: `westeurope`
 

@@ -21,6 +21,7 @@ parVpnGatewayScaleUnit | No       | The scale unit for this VPN Gateway.
 parExpressRouteGatewayScaleUnit | No       | The scale unit for this ExpressRoute Gateway.
 parDdosEnabled | No       | Switch to enable/disable DDoS Network Protection deployment.
 parAzFirewallDnsProxyEnabled | No       | Switch to enable/disable Azure Firewall DNS Proxy.
+parAzFirewallThreatIntelMode | No       | Azure Firewall Threat Intel Mode.
 parVirtualHubEnabled | No       | Switch to enable/disable Virtual Hub deployment.
 parDdosPlanName | No       | DDoS Plan Name.
 parPrivateDnsZones | No       | Array of custom DNS Zones to provision in Hub Virtual Network.
@@ -160,6 +161,16 @@ Switch to enable/disable Azure Firewall DNS Proxy.
 
 - Default value: `True`
 
+### parAzFirewallThreatIntelMode
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Azure Firewall Threat Intel Mode.
+
+- Default value: `Deny`
+
+- Allowed values: `Alert`, `Deny`
+
 ### parVirtualHubEnabled
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
@@ -267,6 +278,9 @@ The customer usage attribution ID for partners
         },
         "parAzFirewallDnsProxyEnabled": {
             "value": true
+        },
+        "parAzFirewallThreatIntelMode": {
+            "value": "Deny"
         },
         "parVirtualHubEnabled": {
             "value": true
