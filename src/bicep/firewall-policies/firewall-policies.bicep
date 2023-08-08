@@ -39,7 +39,7 @@ param parAzFirewallThreatIntelMode string = 'Deny'
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object
 
-resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-02-01' = {
+resource resFirewallPolicies 'Microsoft.Network/firewallPolicies@2023-04-01' = {
   name: parAzFirewallPoliciesName
   location: parLocation
   tags: parTags

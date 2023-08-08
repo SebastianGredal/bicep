@@ -28,6 +28,7 @@ param parVirtualHubName string = '${parPrefix}-vhub'
 - `parVirtualRouterAutoScaleConfiguration` - The Virtual WAN Hub capacity. The value should be between 2 to 50.
 - `parHubResourceGroup` - Resource Group Name where Private DNS Zones / DNS Resolver are.
 - `parDnsResolverAddressPrefix` - The IP address range in CIDR notation for the DNS Resolver to use.
+- `parPrivateDnsEnabled` - Switch to enable/disable Private DNS and DNS Resolver deployment on the respective Virtual WAN Hub.
 - `parPrivateDnsZoneAutoMergeAzureBackupZone` - Switch to enable/disable Private DNS Zones / DNS Resolver deployment on the respective Virtual WAN Hub.
 - `parBastionAddressPrefix` - The IP address range in CIDR notation for the Bastion to use.
 - `parBastionEnabled` - Switch to enable/disable Bastion deployment on the respective Virtual WAN Hub.
@@ -42,6 +43,7 @@ param parVirtualWanHubs array = [ {
     parVirtualRouterAutoScaleConfiguration: 2
     parHubResourceGroup: resourceGroup().name
     parDnsResolverAddressPrefix: '10.101.0.0/28'
+    parPrivateDnsEnabled: true
     parPrivateDnsZoneAutoMergeAzureBackupZone: true
     parBastionAddressPrefix: '10.102.0.0/26'
     parBastionEnabled: true
@@ -184,7 +186,7 @@ param parCustomerUsageAttributionId string = ''
 // ---------
 // RESOURCES
 // ---------
-resource resVwan 'Microsoft.Network/virtualWans@2023-02-01' = {
+resource resVwan 'Microsoft.Network/virtualWans@2023-04-01' = {
   name: parVirtualWANName
   location: parLocation
   tags: parTags
@@ -195,7 +197,7 @@ resource resVwan 'Microsoft.Network/virtualWans@2023-02-01' = {
   }
 }
 
-resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parVirtualHubAddressPrefix)) {
+resource resVHub 'Microsoft.Network/virtualHubs@2023-04-01' = [for item in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parVirtualHubAddressPrefix)) {
   name: '${parVirtualHubName}-${item.parLocation}'
   location: item.parLocation
   tags: parTags
@@ -213,7 +215,7 @@ resource resVHub 'Microsoft.Network/virtualHubs@2023-02-01' = [for item in parVi
   }
 }]
 
-resource hubRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
+resource hubRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-04-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parAzFirewallEnabled) {
   parent: resVHub[i]
   name: 'hubRoutingIntent'
   properties: {
@@ -236,7 +238,7 @@ resource hubRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-02-0
   }
 }]
 
-resource resParentFirewallPolicy 'Microsoft.Network/firewallPolicies@2023-02-01' = if (parVirtualHubEnabled && parVirtualWanHubs[0].parAzFirewallEnabled) {
+resource resParentFirewallPolicy 'Microsoft.Network/firewallPolicies@2023-04-01' = if (parVirtualHubEnabled && parVirtualWanHubs[0].parAzFirewallEnabled) {
   name: '${parAzFirewallPoliciesName}-global'
   location: parLocation
   tags: parTags
@@ -281,7 +283,7 @@ module modAzureFirewalls '../azure-firewalls/azure-firewalls.bicep' = [for (item
   }
 }]
 
-resource resVpnGateway 'Microsoft.Network/vpnGateways@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parVpnGatewayEnabled) {
+resource resVpnGateway 'Microsoft.Network/vpnGateways@2023-04-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parVpnGatewayEnabled) {
   name: '${parVpnGatewayName}-${item.parLocation}'
   location: item.parLocation
   tags: parTags
@@ -298,7 +300,7 @@ resource resVpnGateway 'Microsoft.Network/vpnGateways@2023-02-01' = [for (item, 
   }
 }]
 
-resource resErGateway 'Microsoft.Network/expressRouteGateways@2023-02-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parExpressRouteGatewayEnabled) {
+resource resErGateway 'Microsoft.Network/expressRouteGateways@2023-04-01' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parExpressRouteGatewayEnabled) {
   name: '${parExpressRouteGatewayName}-${item.parLocation}'
   location: item.parLocation
   tags: parTags
@@ -314,13 +316,13 @@ resource resErGateway 'Microsoft.Network/expressRouteGateways@2023-02-01' = [for
   }
 }]
 
-resource resDdosProtectionPlan 'Microsoft.Network/ddosProtectionPlans@2023-02-01' = if (parDdosEnabled) {
+resource resDdosProtectionPlan 'Microsoft.Network/ddosProtectionPlans@2023-04-01' = if (parDdosEnabled) {
   name: parDdosPlanName
   location: parLocation
   tags: parTags
 }
 
-module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parPrivateDnsEnabled && (parAzFirewallTier != 'Basic')) {
   name: '${parPrefix}-dns-resolver-${item.parLocation}'
   scope: resourceGroup(item.parHubResourceGroup)
   params: {
@@ -332,7 +334,7 @@ module modDnsResolvers '../dns-resolvers/dns-resolvers.bicep' = [for (item, i) i
   }
 }]
 
-module modDnsHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+module modDnsHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parPrivateDnsEnabled && (parAzFirewallTier != 'Basic')) {
   dependsOn: [
     hubRoutingIntent[i]
   ]
@@ -346,7 +348,7 @@ module modDnsHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-vwan
   }
 }]
 
-module modPrivateDnsZones '../private-dns-zones/private-dns-zones.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && !empty(item.parDnsResolverAddressPrefix) && (parAzFirewallTier != 'Basic')) {
+module modPrivateDnsZones '../private-dns-zones/private-dns-zones.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parPrivateDnsEnabled && (parAzFirewallTier != 'Basic')) {
   name: '${parPrefix}-private-dns-zones-${item.parLocation}'
   scope: resourceGroup(item.parHubResourceGroup)
   params: {
@@ -388,8 +390,9 @@ module modBastionHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-
   }
 }]
 
-module modHubRuleCollectionGroup '../firewall-policies/rule-collection-groups.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && item.parBastionEnabled) {
+module modHubRuleCollectionGroup '../firewall-policies/rule-collection-groups.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && (item.parPrivateDnsEnabled || item.parBastionEnabled)) {
   dependsOn: [
+    modDnsHubVirtualNetworkConnection[i]
     modBastionHubVirtualNetworkConnection[i]
   ]
   name: '${parPrefix}-hub-rule-collection-group-${item.parLocation}'
@@ -400,79 +403,79 @@ module modHubRuleCollectionGroup '../firewall-policies/rule-collection-groups.bi
     parRuleCollectionGroupPriority: 300
     parRuleCollectionGroupName: 'hub-rule-collection-group'
     parAzFirewallPoliciesName: modFirewallPolicies[i].outputs.outFirewallPoliciesName
-    ruleCollections: [
-      {
-        ruleCollectionType: 'FirewallPolicyFilterRuleCollection'
-        name: 'rc-dns'
-        priority: 100
-        action: {
-          type: 'Allow'
-        }
-        rules: [
-          {
-            ruleType: 'NetworkRule'
-            name: 'dns-inbound'
-            sourceAddresses: [
-              '10.0.0.0/8'
-              '172.16.0.0/12'
-              '192.168.0.0/16'
-            ]
-            destinationPorts: [
-              '53'
-            ]
-            destinationAddresses: [
-              item.parDnsResolverAddressPrefix
-            ]
-            ipProtocols: [
-              'TCP'
-            ]
+    ruleCollections: filter([
+        item.parPrivateDnsEnabled ? {
+          ruleCollectionType: 'FirewallPolicyFilterRuleCollection'
+          name: 'rc-dns'
+          priority: 100
+          action: {
+            type: 'Allow'
           }
-          {
-            ruleType: 'NetworkRule'
-            name: 'dns-outbound'
-            sourceAddresses: [
-              item.parDnsResolverAddressPrefix
-            ]
-            destinationPorts: [
-              '53'
-            ]
-            destinationAddresses: [
-              '*'
-            ]
-            ipProtocols: [
-              'TCP'
-            ]
+          rules: [
+            {
+              ruleType: 'NetworkRule'
+              name: 'dns-inbound'
+              sourceAddresses: [
+                '10.0.0.0/8'
+                '172.16.0.0/12'
+                '192.168.0.0/16'
+              ]
+              destinationPorts: [
+                '53'
+              ]
+              destinationAddresses: [
+                item.parDnsResolverAddressPrefix
+              ]
+              ipProtocols: [
+                'TCP'
+              ]
+            }
+            {
+              ruleType: 'NetworkRule'
+              name: 'dns-outbound'
+              sourceAddresses: [
+                item.parDnsResolverAddressPrefix
+              ]
+              destinationPorts: [
+                '53'
+              ]
+              destinationAddresses: [
+                '*'
+              ]
+              ipProtocols: [
+                'TCP'
+              ]
+            }
+          ]
+        } : null
+        item.parBastionEnabled ? {
+          ruleCollectionType: 'FirewallPolicyFilterRuleCollection'
+          name: 'rc-bastion'
+          priority: 200
+          action: {
+            type: 'Allow'
           }
-        ]
-      }
-      {
-        ruleCollectionType: 'FirewallPolicyFilterRuleCollection'
-        name: 'rc-bastion'
-        priority: 200
-        action: {
-          type: 'Allow'
-        }
-        rules: [
-          {
-            ruleType: 'NetworkRule'
-            name: 'rdp-ssh-outbound'
-            sourceAddresses: [
-              item.parBastionAddressPrefix
-            ]
-            destinationPorts: [
-              '22'
-              '3389'
-            ]
-            destinationAddresses: [
-              '*'
-            ]
-            ipProtocols: [
-              'Any'
-            ]
-          }
-        ]
-      }
-    ]
+          rules: [
+            {
+              ruleType: 'NetworkRule'
+              name: 'rdp-ssh-outbound'
+              sourceAddresses: [
+                item.parBastionAddressPrefix
+              ]
+              destinationPorts: [
+                '22'
+                '3389'
+              ]
+              destinationAddresses: [
+                '*'
+              ]
+              ipProtocols: [
+                'Any'
+              ]
+            }
+          ]
+        } : null
+      ], arg => arg != null)
   }
 }]
 

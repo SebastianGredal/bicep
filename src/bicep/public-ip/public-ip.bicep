@@ -24,7 +24,7 @@ param parAvailabilityZones array = []
 @sys.description('Tags to be applied to resource when deployed.')
 param parTags object = {}
 
-resource resPublicIp 'Microsoft.Network/publicIPAddresses@2023-02-01' = {
+resource resPublicIp 'Microsoft.Network/publicIPAddresses@2023-04-01' = {
   name: parPublicIpName
   tags: parTags
   location: parLocation

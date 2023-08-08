@@ -28,7 +28,7 @@ param parTags object = {}
 // ---------
 // RESOURCES
 // ---------
-resource resVnet 'Microsoft.Network/virtualNetworks@2023-02-01' = {
+resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   name: parVirtualNetworkName
   location: parLocation
   tags: parTags

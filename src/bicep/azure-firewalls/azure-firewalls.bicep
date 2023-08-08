@@ -37,7 +37,7 @@ param parFirewallPolicyId string
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object
 
-resource resAzureFirewalls 'Microsoft.Network/azureFirewalls@2023-02-01' = {
+resource resAzureFirewalls 'Microsoft.Network/azureFirewalls@2023-04-01' = {
   name: parAzFirewallName
   location: parLocation
   tags: parTags

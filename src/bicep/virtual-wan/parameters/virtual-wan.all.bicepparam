@@ -15,6 +15,7 @@ param parVirtualWanHubs = [
     parVirtualRouterAutoScaleConfiguration: 2
     parHubResourceGroup: 'sbg-test'
     parDnsResolverAddressPrefix: '10.101.0.0/28'
+    parPrivateDnsEnabled: true
     parPrivateDnsZoneAutoMergeAzureBackupZone: true
     parBastionAddressPrefix: '10.102.0.0/26'
     parBastionEnabled: true
