@@ -1,16 +1,20 @@
-name: Deployment - Core
+name: Deployment - Network
 
 on:
     push:
         branches:
             - main
         paths: 
-            - "src/bicep/management-groups/**"
+            - "src/bicep/virtual-wan/**"
+            - "parameters/resource-groups.connectivity.bicepparam"
+            - "parameters/virtual-wan.connectivity.bicepparam"
     pull_request:
         branches:
             - main
         paths:
-            - "src/bicep/management-groups/**"
+            - "src/bicep/virtual-wan/**"
+            - "parameters/resource-groups.connectivity.bicepparam"
+            - "parameters/virtual-wan.connectivity.bicepparam"
     workflow_dispatch:
 
 permissions:
@@ -47,12 +51,12 @@ jobs:
               with:
                   client-id: ${{ secrets.AZURE_CLIENT_ID }}
                   tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-                  subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+                  subscription-id: ${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
 
             - name: "Management Groups Deployment"
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZManagementGroups.ps1
+                    .\src\scripts\Deploy-ALZResourceGroups.ps1 -Name alz-ConnectivityRGDeploy -TemplateParameterFile 'parameters/resource-groups.connectivity.bicepparam'
                 azPSVersion: "latest"
