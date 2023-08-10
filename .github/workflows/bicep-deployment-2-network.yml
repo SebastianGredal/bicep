@@ -54,7 +54,7 @@ jobs:
                   subscription-id: ${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
 
-            - name: "Management Groups Deployment"
+            - name: "Resource Groups Deployment"
               uses: azure/powershell@v1
               with:
                 inlineScript: |
