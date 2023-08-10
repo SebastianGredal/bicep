@@ -46,9 +46,9 @@ outResourceGroups | array |
         "parResourceGroups": {
             "value": [
                 {
-                    "name": "rg-landingzone-1",
-                    "location": "westeurope",
-                    "tags": {
+                    "parName": "rg-landingzone-1",
+                    "parLocation": "westeurope",
+                    "parTags": {
                         "environment": "dev"
                     }
                 }
