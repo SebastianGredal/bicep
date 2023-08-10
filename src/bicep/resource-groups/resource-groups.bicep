@@ -10,9 +10,9 @@ metadata description = 'Module used to create Resource Groups for Azure Landing 
 ''')
 param parResourceGroups array = [
   {
-    name: 'rg-landingzone-1'
-    location: 'westeurope'
-    tags: {
+    parName: 'rg-landingzone-1'
+    parLocation: 'westeurope'
+    parTags: {
       environment: 'dev'
     }
   }
@@ -21,14 +21,14 @@ param parResourceGroups array = [
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 
-resource resResourceGroups 'Microsoft.Resources/resourceGroups@2022-09-01' = [for parResourceGroup in parResourceGroups: {
-  name: parResourceGroup.name
-  location: parResourceGroup.location
-  tags: parResourceGroup.tags
+resource resResourceGroups 'Microsoft.Resources/resourceGroups@2022-09-01' = [for item in parResourceGroups: {
+  name: item.parName
+  location: item.parLocation
+  tags: item.parTags
 }]
 
 module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribution-subscription.bicep' = if (!empty(parCustomerUsageAttributionId)) {
-  name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(subscription().subscriptionId, parResourceGroups[0].parResourceGroupName)}'
+  name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(subscription().subscriptionId, parResourceGroups[0].parName)}'
   params: {}
 }
 
