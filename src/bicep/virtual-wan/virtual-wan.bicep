@@ -391,10 +391,6 @@ module modBastionHubVirtualNetworkConnection '../vnet-peering-vwan/vnet-peering-
 }]
 
 module modHubRuleCollectionGroup '../firewall-policies/rule-collection-groups.bicep' = [for (item, i) in parVirtualWanHubs: if (parVirtualHubEnabled && (item.parPrivateDnsEnabled || item.parBastionEnabled)) {
-  dependsOn: [
-    modDnsHubVirtualNetworkConnection[i]
-    modBastionHubVirtualNetworkConnection[i]
-  ]
   name: '${parPrefix}-hub-rule-collection-group-${item.parLocation}'
   scope: resourceGroup(item.parHubResourceGroup)
   params: {
