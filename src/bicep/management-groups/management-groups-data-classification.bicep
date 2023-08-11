@@ -15,11 +15,8 @@ param parLandingZoneChildrenDataClassificationManagementGroups array
 @sys.description('The management group suffix')
 param parManagementGroupSuffix string
 
-@sys.description('The top level management group prefix')
-param parTopLevelManagementGroupPrefix string
-
 resource resLandingZoneChildrenDataClassificationManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parLandingZoneChildrenDataClassificationManagementGroups: {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-landingzones-${parName}-${item.name}' : '${parTopLevelManagementGroupPrefix}-landingzones-${parName}-${item.name}-${parManagementGroupSuffix}'
+  name: empty(parManagementGroupSuffix) ? '${parName}-${item.name}' : '${parName}-${item.name}-${parManagementGroupSuffix}'
   properties: {
     displayName: item.displayName
     details: {

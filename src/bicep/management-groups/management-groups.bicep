@@ -203,7 +203,6 @@ module modManagementGroupDataClassification 'management-groups-data-classificati
     parName: resLandingZoneChildrenManagementGroups[index].name
     parParentId: resLandingZoneChildrenManagementGroups[index].id
     parManagementGroupSuffix: parManagementGroupSuffix
-    parTopLevelManagementGroupPrefix: parTopLevelManagementGroupPrefix
   }
 }]
 
