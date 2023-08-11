@@ -5,14 +5,12 @@ on:
         branches:
             - main
         paths: 
-            - "src/bicep/virtual-wan/**"
             - "parameters/resource-groups.connectivity.bicepparam"
             - "parameters/virtual-wan.connectivity.bicepparam"
     pull_request:
         branches:
             - main
         paths:
-            - "src/bicep/virtual-wan/**"
             - "parameters/resource-groups.connectivity.bicepparam"
             - "parameters/virtual-wan.connectivity.bicepparam"
     workflow_dispatch:

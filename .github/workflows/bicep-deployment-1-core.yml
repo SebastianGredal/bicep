@@ -5,12 +5,12 @@ on:
         branches:
             - main
         paths: 
-            - "src/bicep/management-groups/**"
+            - "parameters/management-groups.bicepparam"
     pull_request:
         branches:
             - main
         paths:
-            - "src/bicep/management-groups/**"
+            - "parameters/management-groups.bicepparam"
     workflow_dispatch:
 
 permissions:
