@@ -10,7 +10,6 @@ parName        | Yes      | The landing zone management group name
 parParentId    | Yes      | The landing zone management group parent id
 parLandingZoneChildrenDataClassificationManagementGroups | Yes      | The landing zone children data classification management groups
 parManagementGroupSuffix | Yes      | The management group suffix
-parTopLevelManagementGroupPrefix | Yes      | The top level management group prefix
 
 ### parName
 
@@ -36,12 +35,6 @@ The landing zone children data classification management groups
 
 The management group suffix
 
-### parTopLevelManagementGroupPrefix
-
-![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
-
-The top level management group prefix
-
 ## Snippets
 
 ### Parameter file
@@ -64,9 +57,6 @@ The top level management group prefix
             "value": []
         },
         "parManagementGroupSuffix": {
-            "value": ""
-        },
-        "parTopLevelManagementGroupPrefix": {
             "value": ""
         }
     }
