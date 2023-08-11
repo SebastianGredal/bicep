@@ -54,5 +54,5 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZManagementGroups.ps1
+                    .\src\scripts\Deploy-ALZTenantScope.ps1
                 azPSVersion: "latest"

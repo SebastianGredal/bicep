@@ -58,5 +58,12 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZResourceGroups.ps1 -Name alz-ConnectivityRGDeploy -TemplateParameterFile 'parameters/resource-groups.connectivity.bicepparam'
+                    .\src\scripts\Deploy-ALZSubscriptionScope.ps1 -Name alz-ConnectivityRGDeploy -TemplateParameterFile 'parameters/resource-groups.connectivity.bicepparam'
+                azPSVersion: "latest"
+
+            - name: "Virtual WAN Deployment"
+              uses: azure/powershell@v1
+              with:
+                inlineScript: |
+                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name alz-ConnectivityVWanDeploy -ResourceGroupName ${{ env.CONNECTIVITY_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/virtual-wan.connectivity.bicepparam'
                 azPSVersion: "latest"

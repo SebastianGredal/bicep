@@ -2,7 +2,12 @@ using '../src/bicep/resource-groups/resource-groups.bicep'
 
 param parResourceGroups = [
   {
-    parName: 'rg1'
+    parName: 'connectivity'
+    parLocation: 'westeurope'
+    parTags: {}
+  }
+  {
+    parName: 'connectivity-westeurope'
     parLocation: 'westeurope'
     parTags: {}
   }
