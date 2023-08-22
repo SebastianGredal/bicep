@@ -63,5 +63,5 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name alz-ConnectivityVWanDeploy -ResourceGroupName ${{ env.CONNECTIVITY_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/virtual-wan.connectivity.bicepparam'
+                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name alz-ConnectivityVWanDeploy -TemplateFile 'src/bicep/virtual-wan/virtual-wan.bicep' -ResourceGroupName ${{ env.CONNECTIVITY_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/virtual-wan.connectivity.bicepparam'
                 azPSVersion: "latest"

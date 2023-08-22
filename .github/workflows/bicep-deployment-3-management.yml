@@ -63,5 +63,5 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name management-loganalytics-deploy -ResourceGroupName ${{ env.LOG_ANALYTICS_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/log-analytics.management.bicepparam'
+                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name management-loganalytics-deploy -TemplateFile 'src/bicep/log-analytics/log-analytics.bicep' -ResourceGroupName ${{ env.LOG_ANALYTICS_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/log-analytics.management.bicepparam'
                 azPSVersion: "latest"
