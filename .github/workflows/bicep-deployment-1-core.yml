@@ -1,0 +1,58 @@
+name: Deployment - Core
+
+on:
+    push:
+        branches:
+            - main
+        paths: 
+            - "parameters/management-groups.bicepparam"
+    pull_request:
+        branches:
+            - main
+        paths:
+            - "parameters/management-groups.bicepparam"
+    workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: write
+    pull-requests: write
+
+env:
+    ENV_FILE: ".env"
+    IS_PULL_REQUEST: "${{ github.event_name == 'pull_request' }}"
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: "Remove Quotation Marks from Environment File"
+              uses: azure/powershell@v1
+              with:
+                inlineScript: |
+                    Write-Host $ENV_FILE
+                    (Get-Content -Path $env:ENV_FILE -Encoding UTF8) | ForEach-Object {$_ -replace '"',''} | Out-File -FilePath $env:ENV_FILE -Encoding UTF8
+                azPSVersion: "latest"
+
+            - name: Import Environment Variables from File
+              run: cat ${{ env.ENV_FILE }} >> $GITHUB_ENV
+            
+            - name: OIDC Login
+              uses: azure/login@v1
+              with:
+                  client-id: ${{ secrets.AZURE_CLIENT_ID }}
+                  tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+                  subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+                  enable-AzPSSession: true
+
+            - name: "Management Groups Deployment"
+              uses: azure/powershell@v1
+              with:
+                inlineScript: |
+                    .\src\scripts\Deploy-ALZTenantScope.ps1
+                azPSVersion: "latest"
