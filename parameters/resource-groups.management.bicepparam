@@ -4,5 +4,6 @@ param parResourceGroups = [
   {
     parName: 'log-analytics'
     parLocation: 'westeurope'
+    parTags: {}
   }
 ]
