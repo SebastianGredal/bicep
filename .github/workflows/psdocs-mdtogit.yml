@@ -62,8 +62,8 @@ jobs:
       - name: Generate ARM markdowns
         run: |
           Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
-          # Scan for Azure template file recursively in the src/bicep/ directory
-          Get-AzDocTemplateFile -Path src/bicep/ | ForEach-Object {
+          # Scan for Azure template file recursively in the bicep/ directory
+          Get-AzDocTemplateFile -Path bicep/ | ForEach-Object {
             # Generate a standard name of the markdown file. i.e. <name>_<version>.md
             $template = Get-Item -Path $_.TemplateFile;
             $templateraw = Get-Content -Raw -Path $_.Templatefile;
@@ -92,7 +92,7 @@ jobs:
       - name: Remove Generated JSONs
         shell: pwsh
         run: |
-          Get-ChildItem -Recurse -Path src/bicep/ -Filter '*.json' -Exclude 'bicepconfig.json','*.parameters.json','*.parameters.*.json','policy_*' | ForEach-Object {
+          Get-ChildItem -Recurse -Path bicep/ -Filter '*.json' -Exclude 'bicepconfig.json','*.parameters.json','*.parameters.*.json','policy_*' | ForEach-Object {
               Write-Information "==> Removing generated JSON file $_ from Bicep Build" -InformationAction Continue
               Remove-Item -Path $_.FullName
           }
