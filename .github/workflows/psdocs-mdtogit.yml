@@ -8,7 +8,6 @@ on:
       - synchronize
     paths:
       - '**.bicep'
-  workflow_dispatch: {}
 
 env:
   github_user_name: 'github-actions'
