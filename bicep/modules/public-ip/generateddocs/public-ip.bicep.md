@@ -68,7 +68,7 @@ outPublicIpId | string |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/public-ip/public-ip.json"
+        "template": "bicep/modules/public-ip/public-ip.json"
     },
     "parameters": {
         "parLocation": {

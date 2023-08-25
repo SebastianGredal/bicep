@@ -217,7 +217,7 @@ The customer usage attribution ID for partners
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/virtual-wan/virtual-wan.json"
+        "template": "bicep/modules/virtual-wan/virtual-wan.json"
     },
     "parameters": {
         "parLocation": {
