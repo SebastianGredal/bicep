@@ -33,11 +33,11 @@ jobs:
         run: |
           # From https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install#linux
           # Fetch the latest Bicep CLI binary
-          curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          sudo curl -Lo /usr/local/bin/bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
           # Mark it as executable
-          chmod +x ./bicep
+          sudo chmod +x /usr/local/bin/bicep
           # Add bicep to your PATH (requires admin)
-          sudo mv ./bicep /usr/local/bin/bicep
+          # sudo mv ./bicep /usr/local/bin/bicep
           # Verify you can now access the 'bicep' command
           bicep --help
           # Done!
