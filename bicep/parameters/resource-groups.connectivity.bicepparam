@@ -1,4 +1,4 @@
-using '../src/bicep/resource-groups/resource-groups.bicep'
+using '../modules/resource-groups/resource-groups.bicep'
 
 param parResourceGroups = [
   {

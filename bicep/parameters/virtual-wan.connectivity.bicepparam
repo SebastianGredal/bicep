@@ -1,4 +1,4 @@
-using '../src/bicep/virtual-wan/virtual-wan.bicep'
+using '../modules/virtual-wan/virtual-wan.bicep'
 
 param parLocation = 'westeurope'
 param parPrefix = 'anq'

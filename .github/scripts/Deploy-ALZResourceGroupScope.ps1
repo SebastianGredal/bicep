@@ -6,7 +6,7 @@ param (
   [String]$ResourceGroupName,
 
   [Parameter()]
-  [String]$TemplateFile = 'src\bicep\virtual-wan\virtual-wan.bicep',
+  [String]$TemplateFile,
 
   [Parameter()]
   [String]$TemplateParameterFile,

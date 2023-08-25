@@ -5,12 +5,12 @@ on:
         branches:
             - main
         paths: 
-            - "parameters/management-groups.bicepparam"
+            - "bicep/parameters/management-groups.bicepparam"
     pull_request:
         branches:
             - main
         paths:
-            - "parameters/management-groups.bicepparam"
+            - "bicep/parameters/management-groups.bicepparam"
     workflow_dispatch:
 
 permissions:
@@ -54,5 +54,5 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZTenantScope.ps1
+                    .github\scripts\Deploy-ALZTenantScope.ps1 -TemplateFile 'bicep\modules\management-groups\management-groups.bicep' -TemplateParameterFile 'bicep\parameters\management-groups.bicepparam'
                 azPSVersion: "latest"

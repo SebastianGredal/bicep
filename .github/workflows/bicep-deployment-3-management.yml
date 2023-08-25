@@ -56,12 +56,12 @@ jobs:
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZSubscriptionScope.ps1 -Name management-rg-deploy -TemplateParameterFile 'parameters/resource-groups.management.bicepparam'
+                    .github\scripts\Deploy-ALZSubscriptionScope.ps1 -Name management-rg-deploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
                 azPSVersion: "latest"
 
             - name: "Log Analytics Deployment"
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .\src\scripts\Deploy-ALZResourceGroupScope.ps1 -Name management-loganalytics-deploy -TemplateFile 'src/bicep/log-analytics/log-analytics.bicep' -ResourceGroupName ${{ env.LOG_ANALYTICS_RESOURCE_GROUP }} -TemplateParameterFile 'parameters/log-analytics.management.bicepparam'
+                    .github\scripts\Deploy-ALZResourceGroupScope.ps1 -Name management-loganalytics-deploy -TemplateFile 'bicep\modules\log-analytics\log-analytics.bicep' -ResourceGroupName ${{ env.LOG_ANALYTICS_RESOURCE_GROUP }} -TemplateParameterFile 'bicep\parameters\log-analytics.management.bicepparam'
                 azPSVersion: "latest"
