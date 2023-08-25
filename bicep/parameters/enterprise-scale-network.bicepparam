@@ -97,12 +97,12 @@ param parPrivateDnsZones = [
 
 param parResourceGroups = [
   {
-    parName: 'connectivity'
+    parName: '${parPrefix}-connectivity'
     parLocation: 'westeurope'
     parTags: parTags
   }
   {
-    parName: 'connectivity-westeurope'
+    parName: '${parPrefix}-connectivity-westeurope'
     parLocation: 'westeurope'
     parTags: parTags
   }
