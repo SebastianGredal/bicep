@@ -1,4 +1,4 @@
-using '../src/bicep/management-groups/management-groups.bicep'
+using '../modules/management-groups/management-groups.bicep'
 
 param parManagementGroupSuffix = ''
 param parTopLevelManagementGroupPrefix = 'MGT'

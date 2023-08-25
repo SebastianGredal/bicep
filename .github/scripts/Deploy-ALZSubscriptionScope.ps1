@@ -6,7 +6,7 @@ param (
   [String]$Location = "$($env:LOCATION)",
 
   [Parameter()]
-  [String]$TemplateFile = 'src\bicep\resource-groups\resource-groups.bicep',
+  [String]$TemplateFile,
 
   [Parameter()]
   [String]$TemplateParameterFile,

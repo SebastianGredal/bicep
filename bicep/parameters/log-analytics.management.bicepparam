@@ -1,4 +1,4 @@
-using '../src/bicep/log-analytics/log-analytics.bicep'
+using '../modules/log-analytics/log-analytics.bicep'
 
 param parCustomerUsageAttributionId = ''
 param parLogAnalyticsWorkspaceLogRetentionInDays = 365
