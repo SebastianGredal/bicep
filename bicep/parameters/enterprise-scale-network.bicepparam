@@ -122,7 +122,7 @@ param parVirtualWanHubs = [ {
     parLocation: parLocation
     parHubRoutingPreference: 'ExpressRoute'
     parVirtualRouterAutoScaleConfiguration: 2
-    parHubResourceGroup: 'connectivity-westeurope'
+    parHubResourceGroup: parResourceGroups[1].parName
     parDnsResolverAddressPrefix: '10.101.0.0/28'
     parPrivateDnsEnabled: true
     parPrivateDnsZoneAutoMergeAzureBackupZone: true

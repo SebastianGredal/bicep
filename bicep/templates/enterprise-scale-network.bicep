@@ -217,7 +217,7 @@ module modVirtualWan '../modules/virtual-wan/virtual-wan.bicep' = {
   dependsOn: [
     modResourceGroups
   ]
-  scope: resourceGroup('connectivity')
+  scope: resourceGroup(parResourceGroups[0].parName)
   name: 'enterprise-scale-network'
   params: {
     parAzFirewallAvailabilityZones: parAzFirewallAvailabilityZones
