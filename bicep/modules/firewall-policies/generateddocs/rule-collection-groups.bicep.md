@@ -74,7 +74,7 @@ Array Used for multiple Rule Collections. Each object in the array represents an
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/firewall-policies/rule-collection-groups.json"
+        "template": "bicep/modules/firewall-policies/rule-collection-groups.json"
     },
     "parameters": {
         "parPrefix": {

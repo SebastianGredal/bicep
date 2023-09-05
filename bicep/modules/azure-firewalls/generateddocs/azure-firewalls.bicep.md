@@ -91,7 +91,7 @@ outAzureFirewallsName | string |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/azure-firewalls/azure-firewalls.json"
+        "template": "bicep/modules/azure-firewalls/azure-firewalls.json"
     },
     "parameters": {
         "parPrefix": {

@@ -5,14 +5,14 @@ on:
         branches:
             - main
         paths: 
-            - "bicep/parameters/resource-groups.connectivity.bicepparam"
-            - "bicep/parameters/virtual-wan.connectivity.bicepparam"
+            - "bicep/parameters/enterprise-scale-network.bicepparam"
+            - "bicep/templates/enterprise-scale-network.bicep"
     pull_request:
         branches:
             - main
         paths:
-            - "bicep/parameters/resource-groups.connectivity.bicepparam"
-            - "bicep/parameters/virtual-wan.connectivity.bicepparam"
+            - "bicep/parameters/enterprise-scale-network.bicepparam"
+            - "bicep/templates/enterprise-scale-network.bicep"
     workflow_dispatch:
 
 permissions:
@@ -52,16 +52,9 @@ jobs:
                   subscription-id: ${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
 
-            - name: "Resource Groups Deployment"
+            - name: "Enterprise Scale Network Deployment"
               uses: azure/powershell@v1
               with:
                 inlineScript: |
-                    .github\scripts\Deploy-ALZSubscriptionScope.ps1 -Name alz-ConnectivityRGDeploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.connectivity.bicepparam'
-                azPSVersion: "latest"
-
-            - name: "Virtual WAN Deployment"
-              uses: azure/powershell@v1
-              with:
-                inlineScript: |
-                    .github\scripts\Deploy-ALZResourceGroupScope.ps1 -Name alz-ConnectivityVWanDeploy -TemplateFile 'bicep\modules\virtual-wan\virtual-wan.bicep' -ResourceGroupName ${{ env.CONNECTIVITY_RESOURCE_GROUP }} -TemplateParameterFile 'bicep\parameters\virtual-wan.connectivity.bicepparam'
+                    .github\scripts\Deploy-ALZSubscriptionScope.ps1 -Name enterprise-scale-network -TemplateFile 'bicep\templates\enterprise-scale-network.bicep' -TemplateParameterFile 'bicep\parameters\enterprise-scale-network.bicepparam'
                 azPSVersion: "latest"

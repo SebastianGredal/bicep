@@ -71,7 +71,7 @@ outPrivateDnsZonesNames | array |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/private-dns-zones/private-dns-zones.json"
+        "template": "bicep/modules/private-dns-zones/private-dns-zones.json"
     },
     "parameters": {
         "parLocation": {

@@ -117,7 +117,7 @@ outLogAnalyticsSolutions | array |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "src/bicep/log-analytics/log-analytics.json"
+        "template": "bicep/modules/log-analytics/log-analytics.json"
     },
     "parameters": {
         "parPrefix": {
