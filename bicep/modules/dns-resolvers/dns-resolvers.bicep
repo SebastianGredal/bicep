@@ -7,7 +7,7 @@ metadata description = 'Moduele for DNS resolution for private endpoints in hub 
 // PARAMETERS
 // ----------
 @sys.description('parameter description')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('parameter description')
 param parLocation string = resourceGroup().location

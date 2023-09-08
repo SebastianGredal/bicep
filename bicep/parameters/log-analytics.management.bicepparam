@@ -18,6 +18,6 @@ param parLogAnalyticsWorkspaceSolutions = [
   'VMInsights'
 ]
 param parLocation = 'westeurope'
-param parPrefix = 'anq'
+param parPrefix = 'alz'
 param parTags = {}
 param parUseSentinelClassicPricingTiers = false

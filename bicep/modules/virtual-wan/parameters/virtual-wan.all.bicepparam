@@ -1,7 +1,7 @@
 using '../virtual-wan.bicep'
 
 param parLocation = 'westeurope'
-param parPrefix = 'anq'
+param parPrefix = 'alz'
 param parVirtualWANName = '${parPrefix}-vwan-${parLocation}'
 param parVirtualHubName = '${parPrefix}-vhub'
 param parVirtualWanHubs = [

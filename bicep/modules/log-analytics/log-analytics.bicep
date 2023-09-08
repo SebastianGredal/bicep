@@ -2,7 +2,7 @@ metadata name = 'Log Analytics Module'
 metadata description = 'Module used to set up Logging'
 
 @sys.description('Prefix for all resources')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('Log Analytics Workspace name.')
 param parLogAnalyticsWorkspaceName string = '${parPrefix}-log-analytics'

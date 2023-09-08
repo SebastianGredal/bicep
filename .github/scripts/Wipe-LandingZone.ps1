@@ -7,7 +7,7 @@ param (
 
     [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Insert the name of your intermediate root Management Group e.g. 'Contoso'")]
     [string]
-    $intermediateRootGroupID = '<Insert the name of your intermediate root Management Group e.g. Contoso>',
+    $intermediateRootGroupID = 'ALZ',
 
     [Parameter(Mandatory = $true, Position = 4, HelpMessage = 'Insert the subscription name of the subscription to wipe e.g. sub-unit-test-pr-108')]
     [string]

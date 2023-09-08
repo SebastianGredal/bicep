@@ -10,7 +10,7 @@ metadata description = 'Creates an Azure Firewall Rule Collection Group'
 // PARAMETERS
 // ----------
 @sys.description('Prefix for all resources')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('Azure Firewall Name.')
 param parAzFirewallPoliciesName string = '${parPrefix}-afwp-${parLocation}'

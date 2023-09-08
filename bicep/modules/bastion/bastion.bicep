@@ -7,7 +7,7 @@ metadata description = 'Module to deploy Azure Bastion Host'
 // PARAMETERS
 // ----------
 @sys.description('Prefix for all resources')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('The Azure Region to deploy the resources into.')
 param parLocation string = resourceGroup().location
