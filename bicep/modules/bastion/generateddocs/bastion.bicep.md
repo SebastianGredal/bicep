@@ -22,7 +22,7 @@ parTags        | No       | Tags you would like to be applied to all resources i
 
 Prefix for all resources
 
-- Default value: `anq`
+- Default value: `alz`
 
 ### parLocation
 
@@ -111,7 +111,7 @@ outSubnetId | string |
     },
     "parameters": {
         "parPrefix": {
-            "value": "anq"
+            "value": "alz"
         },
         "parLocation": {
             "value": "[resourceGroup().location]"
