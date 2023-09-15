@@ -55,5 +55,5 @@ jobs:
               with:
                 errorActionPreference: "stop"
                 inlineScript: |
-                    .github\scripts\Deploy-ALZTenantScope.ps1 -TemplateFile 'bicep\modules\management-groups\management-groups.bicep' -TemplateParameterFile 'bicep\parameters\management-groups.bicepparam'
+                    .github\scripts\Deploy-ALZTenantScope.ps1 -TemplateFile 'bicep\templates\enterprise-scale-core.bicep' -TemplateParameterFile 'bicep\parameters\enterprise-scale-core.bicepparam'
                 azPSVersion: "latest"
