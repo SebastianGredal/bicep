@@ -1,31 +1,18 @@
 using '../templates/enterprise-scale-network.bicep'
 
 param parAzFirewallAvailabilityZones = []
-
 param parAzFirewallDnsProxyEnabled = true
-
 param parAzFirewallName = '${parPrefix}-fw'
-
 param parAzFirewallPoliciesName = '${parPrefix}-afwp'
-
 param parAzFirewallThreatIntelMode = 'Deny'
-
 param parAzFirewallTier = 'Standard'
-
 param parCustomerUsageAttributionId = ''
-
 param parDdosEnabled = true
-
 param parDdosPlanName = '${parPrefix}-ddos-plan'
-
 param parExpressRouteGatewayName = '${parPrefix}-ergw'
-
 param parExpressRouteGatewayScaleUnit = 1
-
 param parLocation = 'westeurope'
-
 param parPrefix = readEnvironmentVariable('PREFIX', 'alz')
-
 param parPrivateDnsZones = [
   'privatelink.${toLower(parLocation)}.azmk8s.io'
   'privatelink.${toLower(parLocation)}.batch.azure.com'
@@ -94,7 +81,6 @@ param parPrivateDnsZones = [
   'privatelink.web.core.windows.net'
   'privatelink.webpubsub.azure.com'
 ]
-
 param parResourceGroups = [
   {
     parName: '${parPrefix}-connectivity'
@@ -107,15 +93,11 @@ param parResourceGroups = [
     parTags: parTags
   }
 ]
-
 param parTags = {
   costCenter: 'IT'
 }
-
 param parVirtualHubEnabled = true
-
 param parVirtualHubName = '${parPrefix}-vhub'
-
 param parVirtualWanHubs = [ {
     parVpnGatewayEnabled: true
     parExpressRouteGatewayEnabled: true
@@ -132,9 +114,6 @@ param parVirtualWanHubs = [ {
     parBastionEnabled: true
   }
 ]
-
 param parVirtualWANName = '${parPrefix}-vwan-${parLocation}'
-
 param parVpnGatewayName = '${parPrefix}-vpngw'
-
 param parVpnGatewayScaleUnit = 1

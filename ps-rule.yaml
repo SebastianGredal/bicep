@@ -49,6 +49,9 @@ input:
     # Exclude Bicep module files
     - "bicep/modules/**/*.bicep"
 
+    # Ignore Bicep templates
+    - "bicep/templates/*.bicep"
+
 binding:
   preferTargetInfo: true
   targetType:
