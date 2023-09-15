@@ -68,7 +68,25 @@ resource resNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-0
   location: parLocation
   tags: parTags
   properties: {
-    securityRules: []
+    securityRules: [
+      {
+        name: 'Deny-Traversal-Outbound'
+        properties: {
+          description: 'Deny outbound double hop traversal.'
+          access: 'Deny'
+          direction: 'Outbound'
+          priority: 200
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          sourceAddressPrefix: 'VirtualNetwork'
+          destinationAddressPrefix: '*'
+          destinationPortRanges: [
+            '3389'
+            '22'
+          ]
+        }
+      }
+    ]
   }
 }
 
