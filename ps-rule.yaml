@@ -24,17 +24,19 @@ repository:
 
 execution:
   # Ignore warnings for resources and objects that don't have any rules.
-  unprocessedObject: Ignore
+  notProcessedWarning: false
 
 configuration:
   # Enable expansion for Bicep source files.
   AZURE_BICEP_FILE_EXPANSION: true
 
+  AZURE_BICEP_PARAMS_FILE_EXPANSION: true
+
   # Expand Bicep module from Azure parameter files.
   AZURE_PARAMETER_FILE_EXPANSION: true
 
   # Set timeout for expanding Bicep source files.
-  AZURE_BICEP_FILE_EXPANSION_TIMEOUT: 15
+  AZURE_BICEP_FILE_EXPANSION_TIMEOUT: 30
 
 input:
   pathIgnore:
