@@ -136,7 +136,7 @@ module modResourceGroups '../modules/resource-groups/resource-groups.bicep' = {
   params: {
     parResourceGroups: [
       {
-        parResourceGroupName: logAnalyticsResourceGroupName
+        parName: logAnalyticsResourceGroupName
         parLocation: parLogAnalyticsWorkSpaceLocation
         parTags: parTags
       }
