@@ -1,7 +1,7 @@
-using '../modules/management-groups/management-groups.bicep'
+using '../templates/enterprise-scale-core.bicep'
 
 param parManagementGroupSuffix = ''
-param parTopLevelManagementGroupPrefix = 'ALZ'
+param parTopLevelManagementGroupPrefix = readEnvironmentVariable('TOP_LEVEL_MANAGEMENT_GROUP_PREFIX', 'ALZ')
 param parTopLevelManagementGroupDisplayName = 'Management Groups'
 param parTopLevelManagementGroupParentId = ''
 param parPlatformManagementGroupsEnabled = true
@@ -9,30 +9,8 @@ param parLandinZonesManagementGroupsEnabled = true
 param parDecommissionedManagementGroupsEnabled = true
 param parSandboxManagementGroupsEnabled = true
 param parLandingZonesDataClassificationManagementGroupsEnabled = true
-param parPlatformChildrenManagementGroups = [
-  {
-    name: 'identity'
-    displayName: 'Identity'
-  }
-  {
-    name: 'connectivity'
-    displayName: 'Connectivity'
-  }
-  {
-    name: 'management'
-    displayName: 'Management'
-  }
-]
-param parLandingZoneChildrenManagementGroups = [
-  {
-    name: 'corp'
-    displayName: 'Corp'
-  }
-  {
-    name: 'online'
-    displayName: 'Online'
-  }
-]
+param parCustomPlatformChildrenManagementGroups = []
+param parCustomLandingZoneChildrenManagementGroups = []
 param parLandingZoneChildrenDataClassificationManagementGroups = [
   {
     name: 'public'

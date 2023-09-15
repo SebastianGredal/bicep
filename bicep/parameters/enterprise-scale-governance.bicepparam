@@ -5,7 +5,9 @@ param parConnectivitySubscriptionId = readEnvironmentVariable('CONNECTIVITY_SUBS
 param parCustomerUsageAttributionId = ''
 param parManagementSubscriptionId = readEnvironmentVariable('MANAGEMENT_SUBSCRIPTION_ID', '')
 param parPrefix = readEnvironmentVariable('PREFIX', 'alz')
-param parTags = {}
+param parTags = {
+  costCenter: 'IT'
+}
 
 //Azure Policy Params
 param parDdosProtectionPlanId = ''

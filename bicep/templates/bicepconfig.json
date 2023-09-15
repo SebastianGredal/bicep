@@ -25,6 +25,9 @@
         "max-variables": {
           "level": "error"
         },
+        "no-conflicting-metadata": {
+          "level": "error"
+        },
         "no-hardcoded-env-urls": {
           "level": "error",
           "disallowedhosts": [

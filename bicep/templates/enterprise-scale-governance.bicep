@@ -1,5 +1,8 @@
 targetScope = 'managementGroup'
 
+metadata name = 'Enterprise Scale Governance'
+metadata description = 'Implementation of the Enterprise Scale Governance Framework'
+
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 

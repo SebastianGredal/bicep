@@ -212,3 +212,9 @@ module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribut
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}
 }
+
+output outTopLevelManagementGroupId string = resTopLevelManagementGroup.id
+output outPlatformManagementGroupId string = resPlatformManagementGroup.id
+output outLandingZonesManagementGroupId string = resLandingZoneManagementGroup.id
+output outDecommissionedManagementGroupId string = resDecommissionedManagementGroup.id
+output outSandboxManagementGroupId string = resSandboxManagementGroup.id

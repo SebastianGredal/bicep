@@ -108,7 +108,9 @@ param parResourceGroups = [
   }
 ]
 
-param parTags = {}
+param parTags = {
+  costCenter: 'IT'
+}
 
 param parVirtualHubEnabled = true
 
