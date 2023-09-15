@@ -30,5 +30,5 @@ else {
   if (!$?) {
     Write-Error -Message "$result"
   }
-  $result 
+  $result
 }
