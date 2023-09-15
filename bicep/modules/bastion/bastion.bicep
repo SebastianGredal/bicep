@@ -118,7 +118,11 @@ module modPublicIp '../public-ip/public-ip.bicep' = {
   params: {
     parPublicIpName: parBastionName
     parLocation: parLocation
-    parAvailabilityZones: parPublicIpSku == 'Standard' ? [ 1, 2, 3 ] : []
+    parAvailabilityZones: parPublicIpSku == 'Standard' ? [
+      1
+      2
+      3
+    ] : []
     parPublicIpProperties: {
       publicIpAddressVersion: 'IPv4'
       publicIpAllocationMethod: 'Static'
