@@ -117,6 +117,9 @@ module modManagementGroups '../modules/management-groups/management-groups.bicep
 }
 
 module modPlatformManagementMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parPlatformManagementMgSubscribtions)) {
+  dependsOn: [
+    modManagementGroups
+  ]
   scope: managementGroup(varManagementGroupIds.platformManagement)
   name: 'enterprise-scale-landing-zone-platform-management-subscriptions'
   params: {
@@ -127,6 +130,9 @@ module modPlatformManagementMgSubscriptionPlacement '../modules/subscriptions/su
 }
 
 module modPlatformIdentityMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parPlatformIdentityMgSubscriptions)) {
+  dependsOn: [
+    modManagementGroups
+  ]
   scope: managementGroup(varManagementGroupIds.platformIdentity)
   name: 'enterprise-scale-landing-zone-platform-identity-subscriptions'
   params: {
@@ -137,6 +143,9 @@ module modPlatformIdentityMgSubscriptionPlacement '../modules/subscriptions/subs
 }
 
 module modPlatformConnectivityMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parPlatformConnectivityMgSubscriptions)) {
+  dependsOn: [
+    modManagementGroups
+  ]
   scope: managementGroup(varManagementGroupIds.platformConnectivity)
   name: 'enterprise-scale-landing-zone-platform-connectivity-subscriptions'
   params: {
@@ -147,6 +156,9 @@ module modPlatformConnectivityMgSubscriptionPlacement '../modules/subscriptions/
 }
 
 module modSandboxMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parSandboxMgSubscriptions)) {
+  dependsOn: [
+    modManagementGroups
+  ]
   scope: managementGroup(varManagementGroupIds.sandbox)
   name: 'enterprise-scale-landing-zone-sandbox-subscriptions'
   params: {

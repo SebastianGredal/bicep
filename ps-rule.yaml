@@ -45,10 +45,7 @@ input:
     - ".github/"
 
     # Exclude Bicep module files
-    - "src/bicep/**/*.bicep"
-
-    # Include samples/ test files from modules
-    - "!src/bicep/**/samples/*.bicep"
+    - "bicep/modules/**/*.bicep"
 
 binding:
   preferTargetInfo: true
