@@ -21,6 +21,7 @@ parVmBackupExclusionTagName | No       | Name of the tag to use for excluding VM
 parVmBackupExclusionTagValue | No       | Value of the tag to use for excluding VMs from the scope of this policy (in case of multiple values, use a comma-separated list). This should be used along with the Exclusion Tag Name parameter.
 parExcludedPolicyAssignments | No       | Adding assignment definition names to this array will exclude the specific policies from assignment. Find the correct values to this array in the following documentation: https://github.com/Azure/ALZ-Bicep/wiki/AssigningPolicies#what-if-i-want-to-exclude-specific-policy-assignments-from-alz-default-policy-assignments
 parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
+parPolicyAssignmentAssignedBy | Yes      | The name of the user that created the policy assignment. e.g. "John Doe"
 
 ### parTopLevelManagementGroupPrefix
 
@@ -124,6 +125,12 @@ Adding assignment definition names to this array will exclude the specific polic
 
 The customer usage attribution ID for partners
 
+### parPolicyAssignmentAssignedBy
+
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
+
+The name of the user that created the policy assignment. e.g. "John Doe"
+
 ## Snippets
 
 ### Parameter file
@@ -179,6 +186,9 @@ The customer usage attribution ID for partners
             "value": []
         },
         "parCustomerUsageAttributionId": {
+            "value": ""
+        },
+        "parPolicyAssignmentAssignedBy": {
             "value": ""
         }
     }

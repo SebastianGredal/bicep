@@ -23,6 +23,7 @@ parPolicyAssignmentIdentityRoleAssignmentsSubs | No       | An array containing 
 parPolicyAssignmentIdentityRoleAssignmentsResourceGroups | No       | An array containing a list of Subscription IDs and Resource Group names seperated by a / (subscription ID/resource group name) that the System-assigned Managed Identity associated to the policy assignment will be assigned to in addition to the Management Group the policy is deployed/assigned to. e.g. ['8200b669-cbc6-4e6c-b6d8-f4797f924074/rg01', '7d58dc5d-93dc-43cd-94fc-57da2e74af0d/rg02' ].
 parPolicyAssignmentIdentityRoleDefinitionIds | No       | An array containing a list of RBAC role definition IDs to be assigned to the Managed Identity that is created and associated with the policy assignment. Only required for Modify and DeployIfNotExists policy effects. e.g. ['/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'].
 parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
+parPolicyAssignmentAssignedBy | Yes      | The name of the user that created the policy assignment. e.g. "John Doe"
 
 ### parPolicyAssignmentName
 
@@ -134,6 +135,12 @@ An array containing a list of RBAC role definition IDs to be assigned to the Man
 
 The customer usage attribution ID for partners
 
+### parPolicyAssignmentAssignedBy
+
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
+
+The name of the user that created the policy assignment. e.g. "John Doe"
+
 ## Snippets
 
 ### Parameter file
@@ -195,6 +202,9 @@ The customer usage attribution ID for partners
             "value": []
         },
         "parCustomerUsageAttributionId": {
+            "value": ""
+        },
+        "parPolicyAssignmentAssignedBy": {
             "value": ""
         }
     }
