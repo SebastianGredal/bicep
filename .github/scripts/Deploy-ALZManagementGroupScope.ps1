@@ -21,19 +21,15 @@ $DeploymentName = "$Name-{0}" -f ( -join (Get-Date -Format 'yyyyMMddTHHMMssffffZ
 # Create the deployment
 if ($WhatIfEnabled) {
   Write-Output 'What-If deployment is enabled. Deployment will not be executed.'
-  try {
-    az deployment mg what-if --name $DeploymentName --location $Location --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
-  }
-  catch {
-    Write-Error $_.Exception.Message
+  $result = az deployment mg what-if --name $DeploymentName --location $Location --template-file $TemplateFile --parameters $TemplateParameterFile --verbose 2>&1
+  if (!$?) {
+    Write-Error $result
   }
 }
 else {
   Write-Output 'What-If deployment is disabled. Deployment will be executed.'
-  try {
-    az deployment mg create --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
-  }
-  catch {
-    Write-Error $_.Exception.Message
+  az deployment mg create --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose 2>&1
+  if (!$?) {
+    Write-Error $result
   }
 }
