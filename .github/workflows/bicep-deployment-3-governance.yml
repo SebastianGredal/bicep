@@ -56,6 +56,7 @@ jobs:
               uses: azure/powershell@v1
               with:
                 errorActionPreference: "stop"
+                failOnStandardError: true
                 inlineScript: |
                     .github\scripts\Deploy-ALZManagementGroupScope.ps1 -Name management-rg-deploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
                 azPSVersion: "latest"
