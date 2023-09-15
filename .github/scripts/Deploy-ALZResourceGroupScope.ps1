@@ -25,6 +25,7 @@ if ($WhatIfEnabled) {
   if (!$?) {
     Write-Error -Message "$result"
   }
+  Write-Information -MessageData "$result"
 }
 else {
   Write-Output 'What-If deployment is disabled. Deployment will be executed.'
@@ -32,4 +33,5 @@ else {
   if (!$?) {
     Write-Error -Message "$result"
   }
+  Write-Information -MessageData "$result"
 }
