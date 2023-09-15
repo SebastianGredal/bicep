@@ -115,6 +115,9 @@ param parLogAnalyticsWorkspaceSolutions array = [
   'VMInsights'
 ]
 
+@sys.description('The name of the user that created the policy assignment. e.g. "John Doe"')
+param parPolicyAssignmentAssignedBy string
+
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object = {}
 
@@ -185,6 +188,7 @@ module modPolicyAssignments '../modules/azure-policies/assignments/alzDefaults/a
     parLogAnalyticsWorkspaceResourceId: modLogAnalyticsSentinel.outputs.outLogAnalyticsWorkspaceId
     parMsDefenderForCloudEmailSecurityContact: parMsDefenderForCloudEmailSecurityContact
     parPlatformMgDefaultsEnable: parPlatformMgDefaultsEnable
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPrivateDnsResourceGroupId: !empty(parPrivateDnsResourceGroupName) ? resPrivateDnsResourceGroup.id : ''
     parPrivateDnsZonesNamesToAuditInCorp: parPrivateDnsZonesNamesToAuditInCorp
     parTopLevelManagementGroupPrefix: parTopLevelManagementGroupPrefix

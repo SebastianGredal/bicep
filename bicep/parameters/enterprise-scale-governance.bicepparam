@@ -15,6 +15,7 @@ param parLandingZoneChildrenMgDefaultsEnable = true
 param parLogAnalyticsWorkSpaceLocation = 'westeurope'
 param parMsDefenderForCloudEmailSecurityContact = 'security@contactme.com'
 param parPlatformMgDefaultsEnable = true
+param parPolicyAssignmentAssignedBy = 'Azure Landing Zone Team'
 param parPrivateDnsResourceGroupName = '${parPrefix}-connectivity-westeurope'
 param parPrivateDnsZonesNamesToAuditInCorp = []
 param parTopLevelManagementGroupPrefix = 'ALZ'

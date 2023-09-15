@@ -64,6 +64,9 @@ param parPolicyAssignmentIdentityRoleDefinitionIds array = []
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 
+@sys.description('The name of the user that created the policy assignment. e.g. "John Doe"')
+param parPolicyAssignmentAssignedBy string
+
 var varPolicyAssignmentParametersMerged = union(parPolicyAssignmentParameters, parPolicyAssignmentParameterOverrides)
 
 var varPolicyIdentity = parPolicyAssignmentIdentityType == 'SystemAssigned' ? 'SystemAssigned' : 'None'
@@ -82,6 +85,9 @@ resource resPolicyAssignment 'Microsoft.Authorization/policyAssignments@2022-06-
     enforcementMode: parPolicyAssignmentEnforcementMode
     overrides: parPolicyAssignmentOverrides
     resourceSelectors: parPolicyAssignmentResourceSelectors
+    metadata: {
+      assignedBy: parPolicyAssignmentAssignedBy
+    }
   }
   identity: {
     type: varPolicyIdentity

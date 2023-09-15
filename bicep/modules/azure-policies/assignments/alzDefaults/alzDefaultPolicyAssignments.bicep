@@ -51,6 +51,9 @@ param parExcludedPolicyAssignments array = []
 @sys.description('The customer usage attribution ID for partners')
 param parCustomerUsageAttributionId string = ''
 
+@sys.description('The name of the user that created the policy assignment. e.g. "John Doe"')
+param parPolicyAssignmentAssignedBy string
+
 var varLogAnalyticsWorkspaceSubscription = split(parLogAnalyticsWorkspaceResourceId, '/')[2]
 
 // **Variables**
@@ -393,6 +396,7 @@ module modPolicyAssignmentIntRootDeployMdfcConfig '../policyAssignmentManagement
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployMdfcConfig
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployMDFCConfig.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployMDFCConfig.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployMDFCConfig.libDefinition.properties.displayName
@@ -423,6 +427,7 @@ module modPolicyAssignmentIntRootDeployMDEnpoints '../policyAssignmentManagement
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployMDEnpoints
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployMDEndpoints.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployMDEndpoints.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployMDEndpoints.libDefinition.properties.displayName
@@ -442,6 +447,7 @@ module modPolicyAssignmentIntRootDeployAzActivityLog '../policyAssignmentManagem
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployAzActivityLog
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployAzActivityLog.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployAzActivityLog.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployAzActivityLog.libDefinition.properties.displayName
@@ -466,6 +472,7 @@ module modPolicyAssignmentIntRootDeployAscMonitoring '../policyAssignmentManagem
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployAscMonitoring
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployASCMonitoring.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployASCMonitoring.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployASCMonitoring.libDefinition.properties.displayName
@@ -482,6 +489,7 @@ module modPolicyAssignmentIntRootDeployResourceDiag '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployResourceDiag
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployResourceDiag.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployResourceDiag.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployResourceDiag.libDefinition.properties.displayName
@@ -506,6 +514,7 @@ module modPolicyAssignmentIntRootDeployVmMonitoring '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployVmMonitoring
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployVMMonitoring.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployVMMonitoring.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployVMMonitoring.libDefinition.properties.displayName
@@ -530,6 +539,7 @@ module modPolicyAssignmentIntRootDeployVmssMonitoring '../policyAssignmentManage
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployVmssMonitoring
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployVMSSMonitoring.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployVMSSMonitoring.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployVMSSMonitoring.libDefinition.properties.displayName
@@ -554,6 +564,7 @@ module modPolicyAssignmentIntRootEnforceAcsb '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootEnforceAcsb
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceACSB.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceACSB.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceACSB.libDefinition.properties.displayName
@@ -573,6 +584,7 @@ module modPolicyAssignmentIntRootDeployMdfcOssDb '../policyAssignmentManagementG
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployMdfcOssDb
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployMDFCOssDb.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployMDFCOssDb.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployMDFCOssDb.libDefinition.properties.displayName
@@ -592,6 +604,7 @@ module modPolicyAssignmentIntRootDeployMdfcSqlAtp '../policyAssignmentManagement
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDeployMdfcSqlAtp
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployMDFCSqlAtp.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployMDFCSqlAtp.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployMDFCSqlAtp.libDefinition.properties.displayName
@@ -611,6 +624,7 @@ module modPolicyAssignmentIntRootAuditUnusedRes '../policyAssignmentManagementGr
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootAuditUnusedRes
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentAuditUnusedResources.definitionId
     parPolicyAssignmentName: varPolicyAssignmentAuditUnusedResources.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentAuditUnusedResources.libDefinition.properties.displayName
@@ -627,6 +641,7 @@ module modPolicyAssignmentIntRootDenyUnmanagedDisks '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDenyUnmanagedDisks
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyUnmanagedDisk.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyUnmanagedDisk.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyUnmanagedDisk.libDefinition.properties.displayName
@@ -644,6 +659,7 @@ module modPolicyAssignmentIntRootDenyClassicRes '../policyAssignmentManagementGr
   scope: managementGroup(varManagementGroupIds.intRoot)
   name: varModuleDeploymentNames.modPolicyAssignmentIntRootDenyClassicRes
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyClassicResources.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyClassicResources.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyClassicResources.libDefinition.properties.displayName
@@ -661,6 +677,7 @@ module modPolicyAssignmentConnEnableDdosVnet '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.platformConnectivity)
   name: varModuleDeploymentNames.modPolicyAssignmentConnEnableDdosVnet
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnableDDoSVNET.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnableDDoSVNET.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnableDDoSVNET.libDefinition.properties.displayName
@@ -686,6 +703,7 @@ module modPolicyAssignmentIdentDenyPublicIp '../policyAssignmentManagementGroup.
   scope: managementGroup(varManagementGroupIds.platformIdentity)
   name: varModuleDeploymentNames.modPolicyAssignmentIdentDenyPublicIp
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPublicIP.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyPublicIP.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPublicIP.libDefinition.properties.displayName
@@ -702,6 +720,7 @@ module modPolicyAssignmentIdentDenyMgmtFromInternet '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.platformIdentity)
   name: varModuleDeploymentNames.modPolicyAssignmentIdentDenyMgmtPortsFromInternet
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyMgmtPortsInternet.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyMgmtPortsInternet.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyMgmtPortsInternet.libDefinition.properties.displayName
@@ -718,6 +737,7 @@ module modPolicyAssignmentIdentDenySubnetWithoutNsg '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.platformIdentity)
   name: varModuleDeploymentNames.modPolicyAssignmentIdentDenySubnetWithoutNsg
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenySubnetWithoutNsg.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenySubnetWithoutNsg.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenySubnetWithoutNsg.libDefinition.properties.displayName
@@ -734,6 +754,7 @@ module modPolicyAssignmentIdentDeployVmBackup '../policyAssignmentManagementGrou
   scope: managementGroup(varManagementGroupIds.platformIdentity)
   name: varModuleDeploymentNames.modPolicyAssignmentIdentDeployVmBackup
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployVMBackup.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployVMBackup.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployVMBackup.libDefinition.properties.displayName
@@ -764,6 +785,7 @@ module modPolicyAssignmentLzsDenyIpForwarding '../policyAssignmentManagementGrou
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyIpForwarding
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyIPForwarding.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyIPForwarding.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyIPForwarding.libDefinition.properties.displayName
@@ -780,6 +802,7 @@ module modPolicyAssignmentLzsDenyMgmtFromInternet '../policyAssignmentManagement
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyMgmtPortsFromInternet
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyMgmtPortsInternet.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyMgmtPortsInternet.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyMgmtPortsInternet.libDefinition.properties.displayName
@@ -796,6 +819,7 @@ module modPolicyAssignmentLzsDenySubnetWithoutNsg '../policyAssignmentManagement
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenySubnetWithoutNsg
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenySubnetWithoutNsg.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenySubnetWithoutNsg.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenySubnetWithoutNsg.libDefinition.properties.displayName
@@ -812,6 +836,7 @@ module modPolicyAssignmentLzsDeployVmBackup '../policyAssignmentManagementGroup.
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeployVmBackup
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployVMBackup.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployVMBackup.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployVMBackup.libDefinition.properties.displayName
@@ -839,6 +864,7 @@ module modPolicyAssignmentLzsEnableDdosVnet '../policyAssignmentManagementGroup.
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsEnableDdosVnet
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnableDDoSVNET.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnableDDoSVNET.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnableDDoSVNET.libDefinition.properties.displayName
@@ -863,6 +889,7 @@ module modPolicyAssignmentLzsDenyStorageHttp '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyStorageHttp
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyStoragehttp.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyStoragehttp.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyStoragehttp.libDefinition.properties.displayName
@@ -879,6 +906,7 @@ module modPolicyAssignmentLzsDeployAksPolicy '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeployAksPolicy
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployAKSPolicy.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployAKSPolicy.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployAKSPolicy.libDefinition.properties.displayName
@@ -898,6 +926,7 @@ module modPolicyAssignmentLzsDenyPrivEscalationAks '../policyAssignmentManagemen
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyPrivEscalationAks
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPrivEscalationAKS.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyPrivEscalationAKS.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPrivEscalationAKS.libDefinition.properties.displayName
@@ -914,6 +943,7 @@ module modPolicyAssignmentLzsDenyPrivContainersAks '../policyAssignmentManagemen
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyPrivContainersAks
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPrivContainersAKS.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyPrivContainersAKS.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPrivContainersAKS.libDefinition.properties.displayName
@@ -930,6 +960,7 @@ module modPolicyAssignmentLzsEnforceAksHttps '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsEnforceAksHttps
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceAKSHTTPS.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceAKSHTTPS.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceAKSHTTPS.libDefinition.properties.displayName
@@ -946,6 +977,7 @@ module modPolicyAssignmentLzsEnforceTlsSsl '../policyAssignmentManagementGroup.b
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsEnforceTlsSsl
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceTLSSSL.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceTLSSSL.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceTLSSSL.libDefinition.properties.displayName
@@ -962,6 +994,7 @@ module modPolicyAssignmentLzsDeployAzSqlDbAuditing '../policyAssignmentManagemen
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeployAzSqlDbAuditing
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployAzSqlDbAuditing.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployAzSqlDbAuditing.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployAzSqlDbAuditing.libDefinition.properties.displayName
@@ -990,6 +1023,7 @@ module modPolicyAssignmentLzsDeploySqlThreat '../policyAssignmentManagementGroup
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeploySqlThreat
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeploySQLThreat.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeploySQLThreat.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeploySQLThreat.libDefinition.properties.displayName
@@ -1009,6 +1043,7 @@ module modPolicyAssignmentLzsDeploySqlTde '../policyAssignmentManagementGroup.bi
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeploySqlTde
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeploySQLTDE.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeploySQLTDE.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeploySQLTDE.libDefinition.properties.displayName
@@ -1028,6 +1063,7 @@ module modPolicyAssignmentLzsEnforceGrKeyVault '../policyAssignmentManagementGro
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsEnforceGrKeyVault
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceGRKeyVault.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceGRKeyVault.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceGRKeyVault.libDefinition.properties.displayName
@@ -1044,6 +1080,7 @@ module modPolicyAssignmentLzsAuditAppGwWaf '../policyAssignmentManagementGroup.b
   scope: managementGroup(varManagementGroupIds.landingZones)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsAuditAppGwWaf
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentAuditAppGWWAF.definitionId
     parPolicyAssignmentName: varPolicyAssignmentAuditAppGWWAF.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentAuditAppGWWAF.libDefinition.properties.displayName
@@ -1061,6 +1098,7 @@ module modPolicyAssignmentLzsDenyPublicEndpoints '../policyAssignmentManagementG
   scope: managementGroup(varManagementGroupIds.landingZonesCorp)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDenyPublicEndpoints
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPublicEndpoints.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyPublicEndpoints.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPublicEndpoints.libDefinition.properties.displayName
@@ -1077,6 +1115,7 @@ module modPolicyAssignmentConnDeployPrivateDnsZones '../policyAssignmentManageme
   scope: managementGroup(varManagementGroupIds.landingZonesCorp)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsDeployPrivateDnsZones
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployPrivateDNSZones.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDeployPrivateDNSZones.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDeployPrivateDNSZones.libDefinition.properties.displayName
@@ -1254,6 +1293,7 @@ module modPolicyAssignmentLzsCorpDenyPipOnNic '../policyAssignmentManagementGrou
   scope: managementGroup(varManagementGroupIds.landingZonesCorp)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsCorpDenyPipOnNic
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPublicIPOnNIC.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyPublicIPOnNIC.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPublicIPOnNIC.libDefinition.properties.displayName
@@ -1270,6 +1310,7 @@ module modPolicyAssignmentLzsCorpDenyHybridNet '../policyAssignmentManagementGro
   scope: managementGroup(varManagementGroupIds.landingZonesCorp)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsCorpDenyHybridNet
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyHybridNetworking.definitionId
     parPolicyAssignmentName: varPolicyAssignmentDenyHybridNetworking.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentDenyHybridNetworking.libDefinition.properties.displayName
@@ -1286,6 +1327,7 @@ module modPolicyAssignmentLzsCorpAuditPeDnsZones '../policyAssignmentManagementG
   scope: managementGroup(varManagementGroupIds.landingZonesCorp)
   name: varModuleDeploymentNames.modPolicyAssignmentLzsCorpAuditPeDnsZones
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentAuditPeDnsZones.definitionId
     parPolicyAssignmentName: varPolicyAssignmentAuditPeDnsZones.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentAuditPeDnsZones.libDefinition.properties.displayName
@@ -1308,6 +1350,7 @@ module modPolicyAssignmentDecommEnforceAlz '../policyAssignmentManagementGroup.b
   scope: managementGroup(varManagementGroupIds.decommissioned)
   name: varModuleDeploymentNames.modPolicyAssignmentDecommEnforceAlz
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceALZDecomm.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceALZDecomm.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceALZDecomm.libDefinition.properties.displayName
@@ -1328,6 +1371,7 @@ module modPolicyAssignmentSandboxEnforceAlz '../policyAssignmentManagementGroup.
   scope: managementGroup(varManagementGroupIds.sandbox)
   name: varModuleDeploymentNames.modPolicyAssignmentSandboxEnforceAlz
   params: {
+    parPolicyAssignmentAssignedBy: parPolicyAssignmentAssignedBy
     parPolicyAssignmentDefinitionId: varPolicyAssignmentEnforceALZSandbox.definitionId
     parPolicyAssignmentName: varPolicyAssignmentEnforceALZSandbox.libDefinition.name
     parPolicyAssignmentDisplayName: varPolicyAssignmentEnforceALZSandbox.libDefinition.properties.displayName
