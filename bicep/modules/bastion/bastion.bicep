@@ -41,6 +41,10 @@ param parPublicIpSku string = 'Standard'
 @sys.description('Tags you would like to be applied to all resources in this module.')
 param parTags object = {}
 
+var varPublicIpTags = union(parTags, {
+    'resource-usage': 'azure-bastion'
+  })
+
 // ---------
 // VARIABLES
 // ---------
@@ -118,11 +122,7 @@ module modPublicIp '../public-ip/public-ip.bicep' = {
   params: {
     parPublicIpName: parBastionName
     parLocation: parLocation
-    parAvailabilityZones: parPublicIpSku == 'Standard' ? [
-      '1'
-      '2'
-      '3'
-    ] : []
+    parAvailabilityZones: []
     parPublicIpProperties: {
       publicIpAddressVersion: 'IPv4'
       publicIpAllocationMethod: 'Static'
@@ -130,7 +130,7 @@ module modPublicIp '../public-ip/public-ip.bicep' = {
     parPublicIpSku: {
       name: parPublicIpSku
     }
-    parTags: parTags
+    parTags: varPublicIpTags
   }
 }
 
