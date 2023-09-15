@@ -26,6 +26,7 @@ parLogAnalyticsWorkspaceSkuName | No       | Log Analytics Workspace sku name.
 parLogAnalyticsWorkspaceCapacityReservationLevel | No       | Log Analytics Workspace Capacity Reservation Level. Only used if parLogAnalyticsWorkspaceSkuName is set to CapacityReservation.
 parLogAnalyticsWorkspaceLogRetentionInDays | No       | Number of days of log retention for Log Analytics Workspace.
 parLogAnalyticsWorkspaceSolutions | No       | Solutions that will be added to the Log Analytics Workspace.
+parPolicyAssignmentAssignedBy | Yes      | The name of the user that created the policy assignment. e.g. "John Doe"
 parTags        | No       | Tags you would like to be applied to all resources in this module.
 parUseSentinelClassicPricingTiers | No       | Set Parameter to true to use Sentinel Classic Pricing Tiers, following changes introduced in July 2023 as documented here: https://learn.microsoft.com/azure/sentinel/enroll-simplified-pricing-tier.
 
@@ -191,6 +192,12 @@ Solutions that will be added to the Log Analytics Workspace.
 
 - Allowed values: `AgentHealthAssessment`, `AntiMalware`, `ChangeTracking`, `Security`, `SecurityInsights`, `ServiceMap`, `SQLAdvancedThreatProtection`, `SQLVulnerabilityAssessment`, `SQLAssessment`, `Updates`, `VMInsights`
 
+### parPolicyAssignmentAssignedBy
+
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
+
+The name of the user that created the policy assignment. e.g. "John Doe"
+
 ### parTags
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
@@ -293,6 +300,9 @@ Set Parameter to true to use Sentinel Classic Pricing Tiers, following changes i
                 "Updates",
                 "VMInsights"
             ]
+        },
+        "parPolicyAssignmentAssignedBy": {
+            "value": ""
         },
         "parTags": {
             "value": {}
