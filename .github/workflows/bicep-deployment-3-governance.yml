@@ -57,5 +57,5 @@ jobs:
               with:
                 errorActionPreference: "stop"
                 inlineScript: |
-                    .github\scripts\Deploy-ALZManagementGroupScope.ps1 -Name management-rg-deploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
+                    .github\scripts\Deploy-ALZManagementGroupScope.ps1 -Name azure-governance -ManagementGroupId $ENV:TOP_LEVEL_MANAGEMENT_GROUP_PREFIX -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
                 azPSVersion: "latest"
