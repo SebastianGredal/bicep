@@ -1,17 +1,42 @@
 using '../templates/enterprise-scale-governance.bicep'
 
+//General Params
+param parConnectivitySubscriptionId = readEnvironmentVariable('CONNECTIVITY_SUBSCRIPTION_ID', '')
 param parCustomerUsageAttributionId = ''
+param parManagementSubscriptionId = readEnvironmentVariable('MANAGEMENT_SUBSCRIPTION_ID', '')
+param parPrefix = readEnvironmentVariable('PREFIX', 'alz')
+param parTags = {}
+
+//Azure Policy Params
 param parDdosProtectionPlanId = ''
 param parDisableAlzDefaultPolicies = false
 param parExcludedPolicyAssignments = []
 param parLandingZoneChildrenMgDefaultsEnable = true
 param parLogAnalyticsWorkSpaceLocation = 'westeurope'
-param parLogAnalyticsWorkspaceResourceId = '/subscriptions/f3ca1c54-7ade-4eeb-a7c2-45d7905c6b09/resourcegroups/log-analytics/providers/microsoft.operationalinsights/workspaces/log-analytics'
 param parMsDefenderForCloudEmailSecurityContact = 'security@contactme.com'
 param parPlatformMgDefaultsEnable = true
-param parPrivateDnsResourceGroupId = '/subscriptions/f3ca1c54-7ade-4eeb-a7c2-45d7905c6b09/resourceGroups/alz-connectivity-westeurope'
+param parPrivateDnsResourceGroupName = '${parPrefix}-connectivity-westeurope'
 param parPrivateDnsZonesNamesToAuditInCorp = []
-param parTopLevelManagementGroupPrefix = 'MGT'
+param parTopLevelManagementGroupPrefix = 'ALZ'
 param parTopLevelManagementGroupSuffix = ''
 param parVmBackupExclusionTagName = ''
 param parVmBackupExclusionTagValue = []
+
+// Log Analytics Params
+param parLogAnalyticsWorkspaceLogRetentionInDays = 365
+param parLogAnalyticsWorkspaceCapacityReservationLevel = 100
+param parLogAnalyticsWorkspaceName = 'log-analytics'
+param parLogAnalyticsWorkspaceSkuName = 'PerGB2018'
+param parLogAnalyticsWorkspaceSolutions = [
+  'AgentHealthAssessment'
+  'AntiMalware'
+  'ChangeTracking'
+  'Security'
+  'SecurityInsights'
+  'SQLAdvancedThreatProtection'
+  'SQLVulnerabilityAssessment'
+  'SQLAssessment'
+  'Updates'
+  'VMInsights'
+]
+param parUseSentinelClassicPricingTiers = false

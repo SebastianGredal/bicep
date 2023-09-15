@@ -1,7 +1,7 @@
 using '../modules/management-groups/management-groups.bicep'
 
 param parManagementGroupSuffix = ''
-param parTopLevelManagementGroupPrefix = 'MGT'
+param parTopLevelManagementGroupPrefix = 'ALZ'
 param parTopLevelManagementGroupDisplayName = 'Management Groups'
 param parTopLevelManagementGroupParentId = ''
 param parPlatformManagementGroupsEnabled = true

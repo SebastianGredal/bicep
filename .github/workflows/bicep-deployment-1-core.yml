@@ -53,6 +53,7 @@ jobs:
             - name: "Management Groups Deployment"
               uses: azure/powershell@v1
               with:
+                errorActionPreference: "stop"
                 inlineScript: |
                     .github\scripts\Deploy-ALZTenantScope.ps1 -TemplateFile 'bicep\modules\management-groups\management-groups.bicep' -TemplateParameterFile 'bicep\parameters\management-groups.bicepparam'
                 azPSVersion: "latest"

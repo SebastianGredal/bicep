@@ -3,7 +3,7 @@ param (
   [String]$Name,
 
   [Parameter()]
-  [String]$ResourceGroupName,
+  [String]$Location = "$($env:LOCATION)",
 
   [Parameter()]
   [String]$TemplateFile,
@@ -22,7 +22,7 @@ $DeploymentName = "$Name-{0}" -f ( -join (Get-Date -Format 'yyyyMMddTHHMMssffffZ
 if ($WhatIfEnabled) {
   Write-Output 'What-If deployment is enabled. Deployment will not be executed.'
   try {
-    az deployment group what-if --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
+    az deployment mg what-if --name $DeploymentName --location $Location --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
   }
   catch {
     Write-Error $_.Exception.Message
@@ -31,7 +31,7 @@ if ($WhatIfEnabled) {
 else {
   Write-Output 'What-If deployment is disabled. Deployment will be executed.'
   try {
-    az deployment group create --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
+    az deployment mg create --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose
   }
   catch {
     Write-Error $_.Exception.Message

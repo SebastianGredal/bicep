@@ -24,7 +24,7 @@ param parExpressRouteGatewayScaleUnit = 1
 
 param parLocation = 'westeurope'
 
-param parPrefix = 'alz'
+param parPrefix = readEnvironmentVariable('PREFIX', 'alz')
 
 param parPrivateDnsZones = [
   'privatelink.${toLower(parLocation)}.azmk8s.io'

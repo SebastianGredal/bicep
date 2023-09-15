@@ -5,14 +5,14 @@ on:
         branches:
             - main
         paths: 
-            - "parameters/resource-groups.management.bicepparam"
-            - "parameters/log-analytics.management.bicepparam"
+            - "bicep/templates/enterprise-scale-governance.bicep"
+            - "bicep/parameters/enterprise-scale-governance.bicep"
     pull_request:
         branches:
             - main
         paths:
-            - "parameters/resource-groups.management.bicepparam"
-            - "parameters/log-analytics.management.bicepparam"
+            - "bicep/templates/enterprise-scale-governance.bicep"
+            - "bicep/parameters/enterprise-scale-governance.bicep"
     workflow_dispatch:
 
 permissions:
@@ -52,16 +52,10 @@ jobs:
                   subscription-id: ${{ env.MANAGEMENT_SUBSCRIPTION_ID }}
                   enable-AzPSSession: true
 
-            - name: "Resource Groups Deployment"
+            - name: "Azure Governance Deployment"
               uses: azure/powershell@v1
               with:
+                errorActionPreference: "stop"
                 inlineScript: |
-                    .github\scripts\Deploy-ALZSubscriptionScope.ps1 -Name management-rg-deploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
-                azPSVersion: "latest"
-
-            - name: "Log Analytics Deployment"
-              uses: azure/powershell@v1
-              with:
-                inlineScript: |
-                    .github\scripts\Deploy-ALZResourceGroupScope.ps1 -Name management-loganalytics-deploy -TemplateFile 'bicep\modules\log-analytics\log-analytics.bicep' -ResourceGroupName ${{ env.LOG_ANALYTICS_RESOURCE_GROUP }} -TemplateParameterFile 'bicep\parameters\log-analytics.management.bicepparam'
+                    .github\scripts\Deploy-ALZManagementGroupScope.ps1 -Name management-rg-deploy -TemplateFile 'bicep\modules\resource-groups\resource-groups.bicep' -TemplateParameterFile 'bicep\parameters\resource-groups.management.bicepparam'
                 azPSVersion: "latest"
