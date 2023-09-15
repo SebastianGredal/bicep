@@ -63,12 +63,24 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
         name: 'AzureBastionSubnet'
         properties: {
           addressPrefix: parAddressPrefix
+          networkSecurityGroup: {
+            id: resNetworkSecurityGroup.id
+          }
         }
       }
     ]
   }
   resource resAzureBastionSubnet 'subnets' existing = {
     name: 'AzureBastionSubnet'
+  }
+}
+
+resource resNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-04-01' = {
+  name: '${parVirtualNetworkName}-nsg'
+  location: parLocation
+  tags: parTags
+  properties: {
+    securityRules: []
   }
 }
 
@@ -106,7 +118,7 @@ module modPublicIp '../public-ip/public-ip.bicep' = {
   params: {
     parPublicIpName: parBastionName
     parLocation: parLocation
-    parAvailabilityZones: []
+    parAvailabilityZones: parPublicIpSku == 'Standard' ? [ 1, 2, 3 ] : []
     parPublicIpProperties: {
       publicIpAddressVersion: 'IPv4'
       publicIpAllocationMethod: 'Static'

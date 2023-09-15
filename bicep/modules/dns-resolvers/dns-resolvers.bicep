@@ -43,6 +43,9 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
         name: 'snet-dns-resolver-inbound'
         properties: {
           addressPrefix: parAddressPrefix
+          networkSecurityGroup: {
+            id: resNetworkSecurityGroup.id
+          }
           delegations: [
             {
               name: 'Microsoft.Network.dnsResolvers'
@@ -57,6 +60,15 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   }
   resource resSnetInbound 'subnets' existing = {
     name: 'snet-dns-resolver-inbound'
+  }
+}
+
+resource resNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-04-01' = {
+  name: '${parVirtualNetworkName}-nsg'
+  location: parLocation
+  tags: parTags
+  properties: {
+    securityRules: []
   }
 }
 
