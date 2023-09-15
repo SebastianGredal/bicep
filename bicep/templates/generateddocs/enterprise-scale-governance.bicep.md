@@ -1,4 +1,6 @@
-# Azure template
+# Enterprise Scale Governance
+
+Implementation of the Enterprise Scale Governance Framework
 
 ## Parameters
 

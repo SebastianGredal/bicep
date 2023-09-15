@@ -1,6 +1,6 @@
-# Management Groups Module
+# Enterprise Scale Core
 
-Module for deployment of a management group structure based on the Microsoft Cloud Adoption Framework for Azure
+Implementation of the Enterprise Scale Landing Zone Design
 
 ## Parameters
 
@@ -15,9 +15,13 @@ parLandinZonesManagementGroupsEnabled | No       | Whether to enable the landing
 parDecommissionedManagementGroupsEnabled | No       | Whether to enable the decommissioned management groups
 parSandboxManagementGroupsEnabled | No       | Whether to enable the sandbox management groups
 parLandingZonesDataClassificationManagementGroupsEnabled | No       | Whether to enable the data classification management groups
-parPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups
-parLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups
-parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups
+parCustomPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups. If left empty, the default names will be used.
+parCustomLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups. If left empty, the default names will be used.
+parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups.
+parPlatformManagementMgSubscribtions | No       |
+parPlatformIdentityMgSubscriptions | No       |
+parPlatformConnectivityMgSubscriptions | No       |
+parSandboxMgSubscriptions | No       |
 parCustomerUsageAttributionId | No       | The customer usage attribution ID for partners
 
 ### parManagementGroupSuffix
@@ -32,7 +36,7 @@ Optional suffix for the management group hierarchy. This suffix will be appended
 
 The prefix to use for the top level management group
 
-- Default value: `MGT`
+- Default value: `ALZ`
 
 ### parTopLevelManagementGroupDisplayName
 
@@ -90,45 +94,55 @@ Whether to enable the data classification management groups
 
 - Default value: `True`
 
-### parPlatformChildrenManagementGroups
+### parCustomPlatformChildrenManagementGroups
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Array of objects containing the name and display name of the platform management groups
+Array of objects containing the name and display name of the platform management groups. If left empty, the default names will be used.
 
-- Default value: `  `
-
-### parLandingZoneChildrenManagementGroups
+### parCustomLandingZoneChildrenManagementGroups
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Array of objects containing the name and display name of the landing zones management groups
-
-- Default value: ` `
+Array of objects containing the name and display name of the landing zones management groups. If left empty, the default names will be used.
 
 ### parLandingZoneChildrenDataClassificationManagementGroups
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Array of objects containing the data classification levels of the landing zones management groups
+Array of objects containing the data classification levels of the landing zones management groups.
 
 - Default value: `   `
+
+### parPlatformManagementMgSubscribtions
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+
+
+### parPlatformIdentityMgSubscriptions
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+
+
+### parPlatformConnectivityMgSubscriptions
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+
+
+### parSandboxMgSubscriptions
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+
 
 ### parCustomerUsageAttributionId
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 The customer usage attribution ID for partners
-
-## Outputs
-
-Name | Type | Description
----- | ---- | -----------
-outTopLevelManagementGroupId | string |
-outPlatformManagementGroupId | string |
-outLandingZonesManagementGroupId | string |
-outDecommissionedManagementGroupId | string |
-outSandboxManagementGroupId | string |
 
 ## Snippets
 
@@ -139,14 +153,14 @@ outSandboxManagementGroupId | string |
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "template": "bicep/modules/management-groups/management-groups.json"
+        "template": "bicep/templates/enterprise-scale-core.json"
     },
     "parameters": {
         "parManagementGroupSuffix": {
             "value": ""
         },
         "parTopLevelManagementGroupPrefix": {
-            "value": "MGT"
+            "value": "ALZ"
         },
         "parTopLevelManagementGroupDisplayName": {
             "value": "Management Groups"
@@ -169,33 +183,11 @@ outSandboxManagementGroupId | string |
         "parLandingZonesDataClassificationManagementGroupsEnabled": {
             "value": true
         },
-        "parPlatformChildrenManagementGroups": {
-            "value": [
-                {
-                    "name": "identity",
-                    "displayName": "Identity"
-                },
-                {
-                    "name": "connectivity",
-                    "displayName": "Connectivity"
-                },
-                {
-                    "name": "management",
-                    "displayName": "Management"
-                }
-            ]
+        "parCustomPlatformChildrenManagementGroups": {
+            "value": []
         },
-        "parLandingZoneChildrenManagementGroups": {
-            "value": [
-                {
-                    "name": "corp",
-                    "displayName": "Corp"
-                },
-                {
-                    "name": "online",
-                    "displayName": "Online"
-                }
-            ]
+        "parCustomLandingZoneChildrenManagementGroups": {
+            "value": []
         },
         "parLandingZoneChildrenDataClassificationManagementGroups": {
             "value": [
@@ -216,6 +208,18 @@ outSandboxManagementGroupId | string |
                     "displayName": "Highly Confidential"
                 }
             ]
+        },
+        "parPlatformManagementMgSubscribtions": {
+            "value": []
+        },
+        "parPlatformIdentityMgSubscriptions": {
+            "value": []
+        },
+        "parPlatformConnectivityMgSubscriptions": {
+            "value": []
+        },
+        "parSandboxMgSubscriptions": {
+            "value": []
         },
         "parCustomerUsageAttributionId": {
             "value": ""
