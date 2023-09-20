@@ -99,8 +99,8 @@ param parTags = {
 param parVirtualHubEnabled = true
 param parVirtualHubName = '${parPrefix}-vhub'
 param parVirtualWanHubs = [ {
-    parVpnGatewayEnabled: true
-    parExpressRouteGatewayEnabled: true
+    parVpnGatewayEnabled: false
+    parExpressRouteGatewayEnabled: false
     parAzFirewallEnabled: true
     parVirtualHubAddressPrefix: '10.100.0.0/23'
     parLocation: parLocation
