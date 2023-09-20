@@ -21,7 +21,7 @@ parTags        | Yes      | Tags you would like to be applied to all resources i
 
 Prefix for all resources
 
-- Default value: `anq`
+- Default value: `alz`
 
 ### parAzFirewallName
 
@@ -95,7 +95,7 @@ outAzureFirewallsName | string |
     },
     "parameters": {
         "parPrefix": {
-            "value": "anq"
+            "value": "alz"
         },
         "parAzFirewallName": {
             "value": "[format('{0}-fw-{1}', parameters('parPrefix'), parameters('parLocation'))]"

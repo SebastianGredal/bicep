@@ -19,7 +19,7 @@ ruleCollections | Yes      | Array Used for multiple Rule Collections. Each obje
 
 Prefix for all resources
 
-- Default value: `anq`
+- Default value: `alz`
 
 ### parAzFirewallPoliciesName
 
@@ -78,7 +78,7 @@ Array Used for multiple Rule Collections. Each object in the array represents an
     },
     "parameters": {
         "parPrefix": {
-            "value": "anq"
+            "value": "alz"
         },
         "parAzFirewallPoliciesName": {
             "value": "[format('{0}-afwp-{1}', parameters('parPrefix'), parameters('parLocation'))]"

@@ -10,7 +10,7 @@ metadata description = 'Module to deploy the initial hub and spoke environment f
 param parLocation string = resourceGroup().location
 
 @sys.description('Prefix for all resources')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('Name of the virtual wan')
 param parVirtualWANName string = '${parPrefix}-vwan-${parLocation}'

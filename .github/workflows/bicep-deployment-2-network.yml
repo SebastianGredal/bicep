@@ -55,6 +55,7 @@ jobs:
             - name: "Enterprise Scale Network Deployment"
               uses: azure/powershell@v1
               with:
+                errorActionPreference: "stop"
                 inlineScript: |
                     .github\scripts\Deploy-ALZSubscriptionScope.ps1 -Name enterprise-scale-network -TemplateFile 'bicep\templates\enterprise-scale-network.bicep' -TemplateParameterFile 'bicep\parameters\enterprise-scale-network.bicepparam'
                 azPSVersion: "latest"

@@ -16,7 +16,7 @@ param parLandingZoneChildrenDataClassificationManagementGroups array
 param parManagementGroupSuffix string
 
 resource resLandingZoneChildrenDataClassificationManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parLandingZoneChildrenDataClassificationManagementGroups: {
-  name: empty(parManagementGroupSuffix) ? '${parName}-${item.name}' : '${parName}-${item.name}-${parManagementGroupSuffix}'
+  name: '${parName}-${item.name}${parManagementGroupSuffix}'
   properties: {
     displayName: item.displayName
     details: {

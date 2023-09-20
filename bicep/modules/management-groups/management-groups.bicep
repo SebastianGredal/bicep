@@ -3,7 +3,7 @@ targetScope = 'tenant'
 metadata name = 'Management Groups Module'
 metadata description = 'Module for deployment of a management group structure based on the Microsoft Cloud Adoption Framework for Azure'
 
-@sys.description('The suffix to append to the management group names')
+@sys.description('Optional suffix for the management group hierarchy. This suffix will be appended to management group names/IDs. Include a preceding dash if required. Example: -suffix')
 param parManagementGroupSuffix string = ''
 
 @sys.description('The prefix to use for the top level management group')
@@ -82,27 +82,27 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
 param parCustomerUsageAttributionId string = ''
 
 var varTopLevelManagementGroup = {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}' : '${parTopLevelManagementGroupPrefix}-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}${parManagementGroupSuffix}'
   displayName: parTopLevelManagementGroupDisplayName
 }
 
 var varPlatformManagementGroup = {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-platform' : '${parTopLevelManagementGroupPrefix}-platform-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-platform${parManagementGroupSuffix}'
   displayName: 'Platform'
 }
 
 var varLandingZonesManagementGroup = {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-landingzones' : '${parTopLevelManagementGroupPrefix}-landingzones-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-landingzones${parManagementGroupSuffix}'
   displayName: 'Landing Zones'
 }
 
 var varDecommissionedManagementGroup = {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-decommissioned' : '${parTopLevelManagementGroupPrefix}-decommissioned-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-decommissioned${parManagementGroupSuffix}'
   displayName: 'Decommissioned'
 }
 
 var varSandboxManagementGroup = {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-sandbox' : '${parTopLevelManagementGroupPrefix}-sandbox-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-sandbox${parManagementGroupSuffix}'
   displayName: 'Sandbox'
 }
 
@@ -172,7 +172,7 @@ resource resSandboxManagementGroup 'Microsoft.Management/managementGroups@2021-0
 
 // Level 2 Management Groups
 resource resPlatformChildrenManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parPlatformChildrenManagementGroups: if (parPlatformManagementGroupsEnabled && !empty(parPlatformChildrenManagementGroups)) {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-platform-${item.name}' : '${parTopLevelManagementGroupPrefix}-platform-${item.name}-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-platform-${item.name}${parManagementGroupSuffix}'
   properties: {
     displayName: item.displayName
     details: {
@@ -184,7 +184,7 @@ resource resPlatformChildrenManagementGroups 'Microsoft.Management/managementGro
 }]
 
 resource resLandingZoneChildrenManagementGroups 'Microsoft.Management/managementGroups@2021-04-01' = [for item in parLandingZoneChildrenManagementGroups: if (parLandinZonesManagementGroupsEnabled && !empty(parLandingZoneChildrenManagementGroups)) {
-  name: empty(parManagementGroupSuffix) ? '${parTopLevelManagementGroupPrefix}-landingzones-${item.name}' : '${parTopLevelManagementGroupPrefix}-landingzones-${item.name}-${parManagementGroupSuffix}'
+  name: '${parTopLevelManagementGroupPrefix}-landingzones-${item.name}${parManagementGroupSuffix}'
   properties: {
     displayName: item.displayName
     details: {
@@ -212,3 +212,9 @@ module modCustomerUsageAttribution '../empty-deployments/customer-usage-attribut
   name: 'pid-${parCustomerUsageAttributionId}-${uniqueString(deployment().location)}'
   params: {}
 }
+
+output outTopLevelManagementGroupId string = resTopLevelManagementGroup.id
+output outPlatformManagementGroupId string = resPlatformManagementGroup.id
+output outLandingZonesManagementGroupId string = resLandingZoneManagementGroup.id
+output outDecommissionedManagementGroupId string = resDecommissionedManagementGroup.id
+output outSandboxManagementGroupId string = resSandboxManagementGroup.id

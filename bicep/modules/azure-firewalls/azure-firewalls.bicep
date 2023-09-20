@@ -4,7 +4,7 @@ metadata name = 'Azure Firewalls Module'
 metadata description = 'Module for deployment of Azure Firewalls'
 
 @sys.description('Prefix for all resources')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('Azure Firewall Name.')
 param parAzFirewallName string = '${parPrefix}-fw-${parLocation}'

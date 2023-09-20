@@ -42,7 +42,7 @@ The Azure Region to deploy the resources into.
 
 Prefix for all resources
 
-- Default value: `anq`
+- Default value: `alz`
 
 ### parVirtualWANName
 
@@ -224,7 +224,7 @@ The customer usage attribution ID for partners
             "value": "[resourceGroup().location]"
         },
         "parPrefix": {
-            "value": "anq"
+            "value": "alz"
         },
         "parVirtualWANName": {
             "value": "[format('{0}-vwan-{1}', parameters('parPrefix'), parameters('parLocation'))]"

@@ -6,7 +6,7 @@ Module for deployment of a management group structure based on the Microsoft Clo
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-parManagementGroupSuffix | No       | The suffix to append to the management group names
+parManagementGroupSuffix | No       | Optional suffix for the management group hierarchy. This suffix will be appended to management group names/IDs. Include a preceding dash if required. Example: -suffix
 parTopLevelManagementGroupPrefix | No       | The prefix to use for the top level management group
 parTopLevelManagementGroupDisplayName | No       | The display name to use for the top level management group
 parTopLevelManagementGroupParentId | No       | The parent ID to use for the top level management group
@@ -24,7 +24,7 @@ parCustomerUsageAttributionId | No       | The customer usage attribution ID for
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-The suffix to append to the management group names
+Optional suffix for the management group hierarchy. This suffix will be appended to management group names/IDs. Include a preceding dash if required. Example: -suffix
 
 ### parTopLevelManagementGroupPrefix
 
@@ -119,6 +119,16 @@ Array of objects containing the data classification levels of the landing zones 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 The customer usage attribution ID for partners
+
+## Outputs
+
+Name | Type | Description
+---- | ---- | -----------
+outTopLevelManagementGroupId | string |
+outPlatformManagementGroupId | string |
+outLandingZonesManagementGroupId | string |
+outDecommissionedManagementGroupId | string |
+outSandboxManagementGroupId | string |
 
 ## Snippets
 

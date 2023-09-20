@@ -1,0 +1,14 @@
+apiVersion: github.com/microsoft/PSRule/v1
+kind: SuppressionGroup
+metadata:
+  name: ALZ.NSGForBastion
+spec:
+  rule:
+    - Azure.NSG.LateralTraversal
+  if:
+    allOf:
+      - name: "."
+        contains: bastion
+      - type: "."
+        in:
+          - Microsoft.Network/networkSecurityGroups

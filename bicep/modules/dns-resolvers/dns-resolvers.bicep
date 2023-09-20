@@ -7,7 +7,7 @@ metadata description = 'Moduele for DNS resolution for private endpoints in hub 
 // PARAMETERS
 // ----------
 @sys.description('parameter description')
-param parPrefix string = 'anq'
+param parPrefix string = 'alz'
 
 @sys.description('parameter description')
 param parLocation string = resourceGroup().location
@@ -43,6 +43,9 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
         name: 'snet-dns-resolver-inbound'
         properties: {
           addressPrefix: parAddressPrefix
+          networkSecurityGroup: {
+            id: resNetworkSecurityGroup.id
+          }
           delegations: [
             {
               name: 'Microsoft.Network.dnsResolvers'
@@ -57,6 +60,33 @@ resource resVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   }
   resource resSnetInbound 'subnets' existing = {
     name: 'snet-dns-resolver-inbound'
+  }
+}
+
+resource resNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-04-01' = {
+  name: '${parVirtualNetworkName}-nsg'
+  location: parLocation
+  tags: parTags
+  properties: {
+    securityRules: [
+      {
+        name: 'Deny-Traversal-Outbound'
+        properties: {
+          description: 'Deny outbound double hop traversal.'
+          access: 'Deny'
+          direction: 'Outbound'
+          priority: 200
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          sourceAddressPrefix: 'VirtualNetwork'
+          destinationAddressPrefix: '*'
+          destinationPortRanges: [
+            '3389'
+            '22'
+          ]
+        }
+      }
+    ]
   }
 }
 

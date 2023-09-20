@@ -23,7 +23,7 @@ parCustomerUsageAttributionId | No       | The customer usage attribution ID for
 
 Prefix for all resources
 
-- Default value: `anq`
+- Default value: `alz`
 
 ### parLogAnalyticsWorkspaceName
 
@@ -121,7 +121,7 @@ outLogAnalyticsSolutions | array |
     },
     "parameters": {
         "parPrefix": {
-            "value": "anq"
+            "value": "alz"
         },
         "parLogAnalyticsWorkspaceName": {
             "value": "[format('{0}-log-analytics', parameters('parPrefix'))]"
