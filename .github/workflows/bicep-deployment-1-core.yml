@@ -5,12 +5,14 @@ on:
         branches:
             - main
         paths: 
-            - "bicep/parameters/management-groups.bicepparam"
+            - "bicep/parameters/enterprise-scale-core.bicepparam"
+            - "bicep/templates/enterprise-scale-core.bicep"
     pull_request:
         branches:
             - main
         paths:
-            - "bicep/parameters/management-groups.bicepparam"
+            - "bicep/parameters/enterprise-scale-core.bicepparam"
+            - "bicep/templates/enterprise-scale-core.bicep"
     workflow_dispatch:
 
 permissions:
