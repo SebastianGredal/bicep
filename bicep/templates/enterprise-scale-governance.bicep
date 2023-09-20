@@ -130,9 +130,16 @@ param parUseSentinelClassicPricingTiers bool = false
 var varTargetManagementGroupId = '${parTopLevelManagementGroupPrefix}${parTopLevelManagementGroupSuffix}'
 var logAnalyticsResourceGroupName = 'rg-${parLogAnalyticsWorkspaceName}'
 
+var varDeploymentNames = {
+  modResourceGroups: take('modResourceGroups-${uniqueString(deployment().name)}', 64)
+  modLogAnalyticsSentinel: take('modLogAnalyticsSentinel-${uniqueString(deployment().name)}', 64)
+  modPolicyDefinitions: take('modPolicyDefinitions-${uniqueString(deployment().name)}', 64)
+  modPolicyAssignments: take('modPolicyAssignments-${uniqueString(deployment().name)}', 64)
+}
+
 module modResourceGroups '../modules/resource-groups/resource-groups.bicep' = {
   scope: subscription(parManagementSubscriptionId)
-  name: 'log-analytics-resource-group'
+  name: varDeploymentNames.modResourceGroups
   params: {
     parResourceGroups: [
       {
@@ -146,7 +153,7 @@ module modResourceGroups '../modules/resource-groups/resource-groups.bicep' = {
 
 module modLogAnalyticsSentinel '../modules/log-analytics/log-analytics.bicep' = {
   scope: resourceGroup(parManagementSubscriptionId, logAnalyticsResourceGroupName)
-  name: 'logAnalyticsSentinel'
+  name: varDeploymentNames.modLogAnalyticsSentinel
   dependsOn: [
     modResourceGroups
   ]
@@ -170,7 +177,7 @@ resource resPrivateDnsResourceGroup 'Microsoft.Resources/resourceGroups@2022-09-
 }
 
 module modPolicyDefinitions '../modules/azure-policies/definitions/customPolicyDefinitions.bicep' = {
-  name: 'customPolicyDefinitions'
+  name: varDeploymentNames.modPolicyDefinitions
   params: {
     parTargetManagementGroupId: varTargetManagementGroupId
   }
@@ -180,7 +187,7 @@ module modPolicyAssignments '../modules/azure-policies/assignments/alzDefaults/a
   dependsOn: [
     modPolicyDefinitions
   ]
-  name: 'policyAssignments'
+  name: varDeploymentNames.modPolicyAssignments
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
     parDdosProtectionPlanId: parDdosProtectionPlanId

@@ -200,13 +200,17 @@ param parVpnGatewayScaleUnit int = 1
 // ---------
 // VARIABLES
 // ---------
+var varDeploymentNames = {
+  modResourceGroups: take('modResourceGroups-${uniqueString(deployment().name)}', 64)
+  modVirtualWan: take('modVirtualWan-${uniqueString(deployment().name)}', 64)
+}
 
 // ---------
 // RESOURCES
 // ---------
 
 module modResourceGroups '../modules/resource-groups/resource-groups.bicep' = {
-  name: 'enterprise-scale-network-resource-groups'
+  name: varDeploymentNames.modResourceGroups
   params: {
     parResourceGroups: parResourceGroups
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
@@ -218,7 +222,7 @@ module modVirtualWan '../modules/virtual-wan/virtual-wan.bicep' = {
     modResourceGroups
   ]
   scope: resourceGroup(parResourceGroups[0].parName)
-  name: 'enterprise-scale-network'
+  name: varDeploymentNames.modVirtualWan
   params: {
     parAzFirewallAvailabilityZones: parAzFirewallAvailabilityZones
     parAzFirewallDnsProxyEnabled: parAzFirewallDnsProxyEnabled

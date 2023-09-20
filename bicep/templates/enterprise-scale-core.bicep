@@ -56,7 +56,7 @@ param parLandingZoneChildrenDataClassificationManagementGroups array = [
   }
 ]
 
-param parPlatformManagementMgSubscribtions array = []
+param parPlatformManagementMgSubscriptions array = []
 param parPlatformIdentityMgSubscriptions array = []
 param parPlatformConnectivityMgSubscriptions array = []
 param parSandboxMgSubscriptions array = []
@@ -97,8 +97,16 @@ var varManagementGroupIds = {
   sandbox: '${parTopLevelManagementGroupPrefix}-sandbox${parManagementGroupSuffix}'
 }
 
+var varDeploymentNames = {
+  modManagementGroups: take('modManagementGroups-${uniqueString(deployment().name)}', 64)
+  modPlatformManagementMgSubscriptionPlacement: take('modPlatformManagementMgSubscriptionPlacement-${uniqueString(deployment().name)}', 64)
+  modPlatformIdentityMgSubscriptionPlacement: take('modPlatformIdentityMgSubscriptionPlacement-${uniqueString(deployment().name)}', 64)
+  modPlatformConnectivityMgSubscriptionPlacement: take('modPlatformConnectivityMgSubscriptionPlacement-${uniqueString(deployment().name)}', 64)
+  modSandboxMgSubscriptionPlacement: take('modSandboxMgSubscriptionPlacement-${uniqueString(deployment().name)}', 64)
+}
+
 module modManagementGroups '../modules/management-groups/management-groups.bicep' = {
-  name: 'enterprise-scale-landing-zone'
+  name: varDeploymentNames.modManagementGroups
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
     parDecommissionedManagementGroupsEnabled: parDecommissionedManagementGroupsEnabled
@@ -116,15 +124,15 @@ module modManagementGroups '../modules/management-groups/management-groups.bicep
   }
 }
 
-module modPlatformManagementMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parPlatformManagementMgSubscribtions)) {
+module modPlatformManagementMgSubscriptionPlacement '../modules/subscriptions/subscriptions.bicep' = if (empty(parCustomPlatformChildrenManagementGroups) && !empty(parPlatformManagementMgSubscriptions)) {
   dependsOn: [
     modManagementGroups
   ]
   scope: managementGroup(varManagementGroupIds.platformManagement)
-  name: 'enterprise-scale-landing-zone-platform-management-subscriptions'
+  name: varDeploymentNames.modPlatformManagementMgSubscriptionPlacement
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
-    parSubscriptionIds: parPlatformManagementMgSubscribtions
+    parSubscriptionIds: parPlatformManagementMgSubscriptions
     parTargetManagementGroupId: varManagementGroupIds.platformManagement
   }
 }
@@ -134,7 +142,7 @@ module modPlatformIdentityMgSubscriptionPlacement '../modules/subscriptions/subs
     modManagementGroups
   ]
   scope: managementGroup(varManagementGroupIds.platformIdentity)
-  name: 'enterprise-scale-landing-zone-platform-identity-subscriptions'
+  name: varDeploymentNames.modPlatformIdentityMgSubscriptionPlacement
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
     parSubscriptionIds: parPlatformIdentityMgSubscriptions
@@ -147,7 +155,7 @@ module modPlatformConnectivityMgSubscriptionPlacement '../modules/subscriptions/
     modManagementGroups
   ]
   scope: managementGroup(varManagementGroupIds.platformConnectivity)
-  name: 'enterprise-scale-landing-zone-platform-connectivity-subscriptions'
+  name: varDeploymentNames.modPlatformConnectivityMgSubscriptionPlacement
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
     parSubscriptionIds: parPlatformConnectivityMgSubscriptions
@@ -160,7 +168,7 @@ module modSandboxMgSubscriptionPlacement '../modules/subscriptions/subscriptions
     modManagementGroups
   ]
   scope: managementGroup(varManagementGroupIds.sandbox)
-  name: 'enterprise-scale-landing-zone-sandbox-subscriptions'
+  name: varDeploymentNames.modSandboxMgSubscriptionPlacement
   params: {
     parCustomerUsageAttributionId: parCustomerUsageAttributionId
     parSubscriptionIds: parSandboxMgSubscriptions

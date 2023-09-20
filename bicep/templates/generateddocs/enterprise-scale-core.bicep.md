@@ -18,7 +18,7 @@ parLandingZonesDataClassificationManagementGroupsEnabled | No       | Whether to
 parCustomPlatformChildrenManagementGroups | No       | Array of objects containing the name and display name of the platform management groups. If left empty, the default names will be used.
 parCustomLandingZoneChildrenManagementGroups | No       | Array of objects containing the name and display name of the landing zones management groups. If left empty, the default names will be used.
 parLandingZoneChildrenDataClassificationManagementGroups | No       | Array of objects containing the data classification levels of the landing zones management groups.
-parPlatformManagementMgSubscribtions | No       |
+parPlatformManagementMgSubscriptions | No       |
 parPlatformIdentityMgSubscriptions | No       |
 parPlatformConnectivityMgSubscriptions | No       |
 parSandboxMgSubscriptions | No       |
@@ -114,7 +114,7 @@ Array of objects containing the data classification levels of the landing zones 
 
 - Default value: `   `
 
-### parPlatformManagementMgSubscribtions
+### parPlatformManagementMgSubscriptions
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
@@ -209,7 +209,7 @@ The customer usage attribution ID for partners
                 }
             ]
         },
-        "parPlatformManagementMgSubscribtions": {
+        "parPlatformManagementMgSubscriptions": {
             "value": []
         },
         "parPlatformIdentityMgSubscriptions": {
