@@ -30,3 +30,7 @@ param parLandingZoneChildrenDataClassificationManagementGroups = [
   }
 ]
 param parCustomerUsageAttributionId = ''
+param parPlatformConnectivityMgSubscriptions = []
+param parPlatformIdentityMgSubscriptions = []
+param parPlatformManagementMgSubscribtions = []
+param parSandboxMgSubscriptions = []
