@@ -12,6 +12,13 @@ param (
   [String]$TemplateParameterFile,
 
   [Parameter()]
+  [String]$DenySettingsExcludedPrincipals,
+
+  [Parameter()]
+  [ValidateSet('denyDelete', 'denyWriteAndDelete', 'none')]
+  [String]$DenySettingsMode,
+
+  [Parameter()]
   [Boolean]$WhatIfEnabled = [System.Convert]::ToBoolean($($env:IS_PULL_REQUEST))
 )
 
@@ -29,7 +36,7 @@ if ($WhatIfEnabled) {
 }
 else {
   Write-Output 'What-If deployment is disabled. Deployment will be executed.'
-  $result = az deployment group create --name $DeploymentName --resource-group $ResourceGroupName --template-file $TemplateFile --parameters $TemplateParameterFile --verbose 2>&1
+  $result = az stack group create --resource-group $ResourceGroupName --name $Name --template-file $TemplateFile --parameters $TemplateParameterFile --deny-settings-excluded-principals $DenySettingsExcludedPrincipals --deny-settings-mode $DenySettingsMode --delete-all --yes --verbose 2>&1
   if (!$?) {
     Write-Error -Message "$result"
   }
