@@ -12,7 +12,7 @@ param (
   [String]$TemplateParameterFile,
 
   [Parameter()]
-  [String]$DenySettingsExcludedPrincipals,
+  [String]$DenySettingsExcludedPrincipals = (az ad signed-in-user show | ConvertFrom-Json).id,
 
   [Parameter()]
   [ValidateSet('denyDelete', 'denyWriteAndDelete', 'none')]
